@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = "accounts";
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'authip',
     ];
 
     /**
@@ -36,4 +38,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function characters()
+    {
+        return $this->hasMany('App\Character', 'accountID', 'id');
+    }
+
+    public function warns()
+    {
+        return $this->hasMany('App\Warn', 'account', 'id');
+    }
+
+    public function hasRole($role)
+    {
+        return $this->usergroups;
+    }
+
+    public function getRank()
+    {
+        $rankName = "Player";
+        if ($this->donator > 0)
+            $rankName = "Donator";
+        if ($this->developer > 0)
+            $rankName = "Developer";
+        if ($this->admin > 0) {
+            $rankName = DB::table('staff_levels')->where('levelID', $this->admin)->value('levelName');
+        }
+        return $rankName;
+    }
 }
