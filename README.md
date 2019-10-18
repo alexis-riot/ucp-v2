@@ -7,6 +7,16 @@ Welcome to the Mafia City Roleplay development area. By accessing this area, you
  
 ## Developments informations
 
+#### Installation on dev environment:
+- Clone the project: ```git clone git@gitlab.com:mcrp/ucp-v2.git```
+- Install laravel dependencies: ```composer install```
+- Install packages: ```npm install```
+- Compile all assets: ```npm run dev```
+- Create the configuration and edit them: ```cp .env.example .env && nano .env```
+- Generate laravel key: ```php artisan key:generate```
+- Make database migrations: ```php artisan migrate```
+- Start the web server: ```php artisan serve```
+
 #### Adding a plugin using npm:
 ```
 npm install {module_name} --save
