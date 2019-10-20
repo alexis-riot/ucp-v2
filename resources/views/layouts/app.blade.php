@@ -73,8 +73,8 @@
                       <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                           <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Utils</span></span></li>
-                          <li class="kt-menu__item @if(Route::current()->getName() == 'character') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ $character->getAbsoluteUrl() }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Overview</span></a></li>
-                          <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Settings</span></a></li>
+                          <li class="kt-menu__item @if(Route::current()->getName() == 'character/overview') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('character/overview', ['id' => $character->id, 'slug' => $character->slug()]) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Overview</span></a></li>
+                          <li class="kt-menu__item @if(Route::current()->getName() == 'character/settings') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('character/settings', ['id' => $character->id, 'slug' => $character->slug()]) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Settings</span></a></li>
                         </ul>
                       </div>
                     </li>

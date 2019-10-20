@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRememberTokenToAccounts extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddRememberTokenToAccounts extends Migration
      */
     public function up()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            $table->string('remember_token', 100);
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('accountID');
+            $table->string('avatar');
+            $table->string('timezone');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddRememberTokenToAccounts extends Migration
      */
     public function down()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('profiles');
     }
 }

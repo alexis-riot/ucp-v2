@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Warn extends Model
 {
+    protected $connection = "db_server";
     protected $table = "warns";
 
     public function author()

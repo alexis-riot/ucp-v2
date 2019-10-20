@@ -98,6 +98,11 @@
                       search: {
                           input: $('#generalSearch'),
                       },
+                      // columns definition
+                      columns: [{
+                          sortable: 'asc',
+                          selector: false,
+                      }],
                   });
               },
           };

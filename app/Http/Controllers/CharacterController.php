@@ -17,12 +17,21 @@ class CharacterController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($id, $slug)
+    public function overview($id, $slug)
     {
         $character = Character::findOrFail($id);
         if ($slug !== $character->slug()) {
             abort(404);
         }
-        return view('character.index', ['character' => Character::findOrFail($id)]);
+        return view('character.overview', ['character' => Character::findOrFail($id)]);
+    }
+
+    public function settings($id, $slug)
+    {
+        $character = Character::findOrFail($id);
+        if ($slug !== $character->slug()) {
+            abort(404);
+        }
+        return view('character.settings', ['character' => Character::findOrFail($id)]);
     }
 }

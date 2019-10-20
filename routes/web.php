@@ -40,7 +40,10 @@ Route::prefix('master')->group(function () {
 
 Route::prefix('character')->group(function () {
     // Characters
-    Route::get('{id}/{slug}', 'CharacterController@show')
+    Route::get('{id}/{slug}/overview', 'CharacterController@overview')
         ->middleware('IsHisCharacter')
-        ->name('character');
+        ->name('character/overview');
+    Route::get('{id}/{slug}/settings', 'CharacterController@settings')
+        ->middleware('IsHisCharacter')
+        ->name('character/settings');
 });
