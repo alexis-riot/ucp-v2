@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
-    public function groups_list()
+    public function groupsList()
     {
         return $this->hasMany('App\Database\Models\PermissionGroupList');
     }
 
-    public function user_has_permission(User $user)
+    public function userHasPermission(User $user)
     {
-        foreach ($this->groups_list as $group) {
+        foreach ($this->groupsList as $group) {
             $result = PermissionGroupUser::where('group_id', $group->group_id)
                 ->count();
 

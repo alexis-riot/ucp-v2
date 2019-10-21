@@ -43,3 +43,17 @@ Example: `mix.js('./node_modules/{module_name}/module.js', 'public/js');`
 `npm run dev`
 
 it make a generation of `/public/` and create all files mentionned in the `webpack.mix.js`
+
+#### Coding style
+- PHP: 
+    - Indentation: 4 spaces.
+    - Convention: PSR2 (https://www.php-fig.org/psr/psr-2/)
+- CSS/SASS:
+    - Indentation: 4 spaces
+- HTML:
+    - Indentation: 2 spaces
+- Database:
+    - Table names: Use plurial and lower case. All words separated by an underscore.  
+      Example: `accounts`, `reset_passwords`, `staff_profiles`
+    - Column names: Use singular and lower case. All words separated by an underscore.   
+      Example: `user_id`, `level`, `usergroup`

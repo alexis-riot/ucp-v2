@@ -50,13 +50,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Database\Models\Warn', 'account', 'id');
     }
 
-    public function has_permission($permission_name)
+    public function hasPermission($permissionName)
     {
-        $result = Permission::where('permission', $permission_name)
+        $result = Permission::where('permission', $permissionName)
             ->first();
 
         if ($result != null)
-            return $result->user_has_permission($this);
+            return $result->userHasPermission($this);
 
         return false;
     }

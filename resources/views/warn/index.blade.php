@@ -66,7 +66,7 @@
                   <td>{{ $warn->points }}</td>
                   <td>{{ $warn->punishmentDate }}</td>
                   <td>
-                    @if ($warn->is_expired()):
+                    @if ($warn->isExpired()):
                       <span class="kt-font-danger">Expired on {{ $warn->expiration }}</span>
                     @else:
                       <span class="kt-font-default">{{ $warn->expiration }}</span>

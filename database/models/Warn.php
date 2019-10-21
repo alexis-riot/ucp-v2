@@ -14,7 +14,7 @@ class Warn extends Model
         return $this->hasOne('App\Database\Models\User', 'id', 'punisher');
     }
 
-    public function is_expired()
+    public function isExpired()
     {
         $expired = false;
         if (strtotime($this->expiration) < time())
