@@ -16,9 +16,6 @@ class Warn extends Model
 
     public function isExpired()
     {
-        $expired = false;
-        if (strtotime($this->expiration) < time())
-            $expired = true;
-        return ($expired);
+        return (strtotime($this->expiration) < time());
     }
 }

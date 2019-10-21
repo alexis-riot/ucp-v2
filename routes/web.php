@@ -38,7 +38,7 @@ Route::prefix('master')->group(function () {
         ->name('punishments');
 });
 
-Route::prefix('character')->group(function () {
+Route::group(['prefix' => 'character', 'middleware' => 'IsHisCharacter'], function () {
     // Characters
     Route::get('{id}/{slug}/overview', 'CharacterController@overview')
         ->middleware('IsHisCharacter')
