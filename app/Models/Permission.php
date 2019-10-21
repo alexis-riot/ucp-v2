@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,7 +8,7 @@ class Permission extends Model
 {
     public function groupsList()
     {
-        return $this->hasMany('App\Database\Models\PermissionGroupList');
+        return $this->hasMany('App\Models\PermissionGroupList');
     }
 
     public function userHasPermission(User $user)

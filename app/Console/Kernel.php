@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ModelMakeCommand::class
+        //
     ];
     /**
      * Define the application's command schedule.

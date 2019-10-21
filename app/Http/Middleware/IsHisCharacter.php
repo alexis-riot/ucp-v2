@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Database\Models\Character;
+use App\Models\Character;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
