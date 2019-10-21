@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Database\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,17 +42,23 @@ class User extends Authenticatable
 
     public function characters()
     {
-        return $this->hasMany('App\Character', 'accountID', 'id');
+        return $this->hasMany('App\Database\Models\Character', 'accountID', 'id');
     }
 
     public function warns()
     {
-        return $this->hasMany('App\Warn', 'account', 'id');
+        return $this->hasMany('App\Database\Models\Warn', 'account', 'id');
     }
 
-    public function hasRole($role)
+    public function has_permission($permission_name)
     {
-        return $this->usergroups;
+        $result = Permission::where('permission', $permission_name)
+            ->first();
+
+        if ($result != null)
+            return $result->user_has_permission($this);
+
+        return false;
     }
 
     public function getRank()

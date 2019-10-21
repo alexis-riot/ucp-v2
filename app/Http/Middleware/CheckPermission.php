@@ -2,11 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Database\Models\Character;
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class IsHisCharacter
+class CheckPermission
 {
     /**
      * Handle an incoming request.
@@ -15,12 +13,11 @@ class IsHisCharacter
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $permission_name)
     {
-        $character = Character::findOrFail($request->route('id'));
-        if ($character->accountID != Auth::user()->id)
+        if (!$request->user()->has_permission($permission_name)) {
             abort(403);
-
+        }
         return $next($request);
     }
 }

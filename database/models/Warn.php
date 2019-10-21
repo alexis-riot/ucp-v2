@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Database\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class Warn extends Model
 
     public function author()
     {
-        return $this->hasOne('App\User', 'id', 'punisher');
+        return $this->hasOne('App\Database\Models\User', 'id', 'punisher');
     }
 
     public function is_expired()

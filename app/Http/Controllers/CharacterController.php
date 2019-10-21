@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
+use App\Database\Models\Character;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
