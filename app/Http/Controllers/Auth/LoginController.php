@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Database\Models\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -44,6 +46,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->username = $this->findUsername();
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        Profile::firstOrCreate(['account_id' => $user->id]);
+    }
+
 
     /**
      * Get the login username to be used by the controller.
