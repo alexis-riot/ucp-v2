@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="kt-portlet__body kt-portlet__body--fit">
-          <table class="kt-datatable2" id="html_table" width="100%">
+          <table class="kt-datatable" id="html_table" width="100%">
             <thead>
             <tr>
               <th title="Field #1">Reason</th>
@@ -66,9 +66,9 @@
                   <td>{{ $warn->points }}</td>
                   <td>{{ $warn->punishmentDate }}</td>
                   <td>
-                    @if ($warn->isExpired()):
+                    @if ($warn->isExpired())
                       <span class="kt-font-danger">Expired on {{ $warn->expiration }}</span>
-                    @else:
+                    @else
                       <span class="kt-font-default">{{ $warn->expiration }}</span>
                     @endif
                   </td>
@@ -80,36 +80,4 @@
       </div>
     </div>
   </div>
-@endsection
-
-
-@section('scripts')
-  <script>
-      var KTDatatable = function() {
-          return {
-              // Public functions
-              init: function() {
-                  $('.kt-datatable2').KTDatatable({
-                      data: {
-                          saveState: {
-                              cookie: false
-                          },
-                      },
-                      search: {
-                          input: $('#generalSearch'),
-                      },
-                      // columns definition
-                      columns: [{
-                          sortable: 'asc',
-                          selector: false,
-                      }],
-                  });
-              },
-          };
-      }();
-
-      jQuery(document).ready(function() {
-          KTDatatable.init();
-      });
-  </script>
 @endsection

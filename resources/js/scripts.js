@@ -29,3 +29,29 @@ require("./global/layout/demo-panel");
 require("./global/layout/offcanvas-panel");
 require("./global/layout/quick-panel");
 require("./global/layout/quick-search");
+
+window.AjaxResponse = function (data) {
+    swal.fire({
+        "title": "",
+        "text": data.message,
+        "type": data.status,
+        "confirmButtonClass": "btn btn-secondary"
+    });
+    if (data.redirect) {
+        setTimeout(function() {
+            window.location.href = data.redirect;
+        }, 1000);
+    } else {
+        KTApp.unprogress($('button[class*="kt-spinner"]'));
+    }
+};
+
+window.AjaxResponseDefault = function(data, btn) {
+    swal.fire({
+        "title": "",
+        "text": "An error occurred on the server",
+        "type": "error",
+        "confirmButtonClass": "btn btn-secondary"
+    });
+    KTApp.unprogress($('[data-type="action-submit"]'));
+};

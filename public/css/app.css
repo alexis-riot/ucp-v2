@@ -18559,7 +18559,7 @@ code {
 }
 
 .note-editor.note-frame {
-  border: 1px solid #e2e5ec;
+  border: 1px solid #e2e5ec !important;
 }
 
 .note-editor.note-frame .panel-heading.note-toolbar {
@@ -38317,7 +38317,6 @@ td > .kt-radio.kt-radio--single {
 
 .kt-notes .kt-notes__items .kt-notes__item .kt-notes__content .kt-notes__section .kt-notes__info .kt-notes__title {
   font-size: 1.1rem;
-  color: #595d6e;
   font-weight: 500;
   padding-right: 0.5rem;
 }
@@ -39312,6 +39311,12 @@ td > .kt-radio.kt-radio--single {
   justify-content: space-between;
   margin: 0;
   padding: 0;
+}
+
+.kt-pagination .disabled {
+  color: #93a2dd;
+  background: #f0f3ff;
+  opacity: 0.3;
 }
 
 .kt-pagination .kt-pagination__links,

@@ -16,6 +16,9 @@ mix.js('resources/js/global.js', 'public/js');
 mix.js('resources/js/scripts.js', 'public/js');
 mix.copyDirectory('resources/images', 'public/images');
 mix.copyDirectory('resources/fonts', 'public/fonts');
+mix.copyDirectory('resources/css/pages', 'public/css/pages');
+mix.copyDirectory('resources/js/pages', 'public/js/pages');
+
 
 mix.sass('resources/sass/login.scss', 'public/css');
 mix.copy('resources/js/login.js', 'public/js');

@@ -1,3 +1,5 @@
+
+
 "use strict";
 
 /**
@@ -45,8 +47,8 @@ require("bootstrap-daterangepicker/daterangepicker.css");
 require("bootstrap-daterangepicker");
 
 // bootstrap-select
-require("bootstrap-select/dist/css/bootstrap-select.css");
 require("bootstrap-select");
+require("bootstrap-select/dist/css/bootstrap-select.css");
 
 // bootstrap-session-timeout
 require("../plugins/bootstrap-session-timeout/dist/bootstrap-session-timeout.js");
@@ -165,3 +167,11 @@ require("../plugins/flaticon/flaticon.css");
 require("../plugins/flaticon2/flaticon.css");
 require("@fortawesome/fontawesome-free/css/all.min.css");
 require("socicon");
+
+// Uppy
+require('@uppy/core');
+require('@uppy/xhr-upload');
+require('@uppy/dashboard');
+
+require('@uppy/core/dist/style.css');
+require('@uppy/dashboard/dist/style.css');

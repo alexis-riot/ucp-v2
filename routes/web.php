@@ -47,3 +47,17 @@ Route::group(['prefix' => 'character', 'middleware' => 'IsHisCharacter'], functi
         ->middleware('IsHisCharacter')
         ->name('character/settings');
 });
+
+Route::prefix('development')->group(function () {
+    Route::get('bug/review', 'BugController@review')
+        ->name('bug/review');
+    Route::resource('bug', 'BugController')->names([
+        'index' => 'bug/index',
+        'create' => 'bug/create',
+        'store' => 'bug/store',
+        'show' => 'bug/show',
+        'edit' => 'bug/edit',
+        'update' => 'bug/update',
+        'destroy' => 'bug/destroy',
+    ]);
+});

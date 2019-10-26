@@ -13,6 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        'App\Models\BugTicket' => 'App\Policies\BugTicketPolicy',
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
@@ -25,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('ticket-update-settings', 'App\Policies\BugTicketPolicy@update');
+
     }
 }

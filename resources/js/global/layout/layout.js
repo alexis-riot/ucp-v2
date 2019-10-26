@@ -451,7 +451,7 @@ var KTLayout = function() {
 
         getContentHeight: function() {
 			return getContentHeight();
-		}
+		},
     };
 }();
 

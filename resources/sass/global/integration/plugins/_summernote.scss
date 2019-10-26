@@ -8,7 +8,7 @@
 @mixin kt-summernote-base() {
     .note-popover {
         display: none;
-    }   
+    }
 
     .note-editor {
         position: static;
@@ -16,7 +16,7 @@
         .note-toolbar {
             position: static;
         }
-        
+
         @include kt-rounded {
             border-radius: $kt-border-radius;
         }
@@ -25,16 +25,16 @@
             .modal-header {
                 .close {
                     position: absolute;
-                    right: 25px; 
+                    right: 25px;
                     top: 20px;
                     font-size: 0;
                 }
             }
-        } 
+        }
 
         .panel-heading.note-toolbar {
             padding: 5px 10px 10px 10px;
-            
+
             @include kt-rounded {
                 border-top-left-radius: $kt-border-radius;
                 border-top-right-radius: $kt-border-radius;
@@ -50,7 +50,7 @@
 
             .note-color .dropdown-menu {
                 min-width: 350px;
-                padding: 10px; 
+                padding: 10px;
 
                 > li {
                     display: table;
@@ -87,12 +87,12 @@
 @mixin kt-summernote-skin() {
     .note-editor {
         &.note-frame {
-            border: 1px solid $input-border-color; 
+            border: 1px solid $input-border-color !important;
 
             .panel-heading.note-toolbar {
                 background: kt-base-color(grey, 1);
             }
-        
+
             .note-statusbar {
                 background: kt-base-color(grey, 1);
             }
