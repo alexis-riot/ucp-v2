@@ -110,13 +110,6 @@ var KTWizard2 = function () {
             if (validator.form()) {
                 KTApp.progress(btn);
 
-                // See: http://malsup.com/jquery/form/#ajaxSubmit
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
                 $.ajax({
                     url: '/development/bug',
                     method: 'POST',

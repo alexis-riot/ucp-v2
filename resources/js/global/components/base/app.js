@@ -330,6 +330,14 @@ var KTApp = function() {
     };
 }();
 
+var TokenCSRF = function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+};
+
 // webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTApp;
@@ -338,4 +346,5 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 // Initialize KTApp class on document ready
 $(document).ready(function() {
     KTApp.init(KTAppOptions);
+    TokenCSRF();
 });

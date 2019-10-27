@@ -27,12 +27,6 @@ var ShowPage = function () {
             e.preventDefault();
             KTApp.progress(btn);
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             $.ajax({
                 url: form.data('form-url'),
                 method: form.data('form-method'),
@@ -57,15 +51,8 @@ var ShowPage = function () {
         var btn = $('[data-type-button="' + request_name + '"]');
 
         btn.on('click', function(e) {
-            console.log("test");
             e.preventDefault();
             KTApp.progress(btn);
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
             $.ajax({
                 url: form.data('form-url'),
