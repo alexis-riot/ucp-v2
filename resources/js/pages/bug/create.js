@@ -166,6 +166,6 @@ var KTWizard2 = function () {
     };
 }();
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     KTWizard2.init();
 });
