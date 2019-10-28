@@ -117,11 +117,13 @@ class BugController extends Controller
             $commentTicket->save();
 
             // Creating images
-            foreach ($request->input('images') as $image) {
-                $bugImage = new BugImage;
-                $bugImage->bug_id = $bugTicket->id;
-                $bugImage->path = $image;
-                $bugImage->save();
+            if ($request->input('images')) {
+                foreach ($request->input('images') as $image) {
+                    $bugImage = new BugImage;
+                    $bugImage->bug_id = $bugTicket->id;
+                    $bugImage->path = $image;
+                    $bugImage->save();
+                }
             }
 
             return response()->json([

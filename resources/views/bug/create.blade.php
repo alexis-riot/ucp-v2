@@ -91,7 +91,7 @@
         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v2__wrapper">
 
           <!--begin: Form Wizard Form-->
-          <form class="kt-form" id="kt_form" data-form-type="update" data-form-url="{{ route('bug/index') }}">
+          <form method="POST" class="kt-form" id="kt_form" data-form-type="create" data-form-url="{{ route('bug/index') }}" data-form-method="POST">
             @csrf
             <!--begin: Form Wizard Step 1-->
               <div class="kt-wizard-v2__content" data-ktwizard-type="step-content" data-ktwizard-state="current">

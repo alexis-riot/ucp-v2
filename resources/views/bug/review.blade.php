@@ -26,7 +26,7 @@
         <div class="kt-portlet__body">
           <div class="row">
             <div class="col-md-3">
-              <form id="search">
+              <form method="POST" id="search">
                 <div class="kt-input-icon kt-input-icon--left">
                   <input type="text" class="form-control" placeholder="Search..." value="{{ request('search') }}" data-url-redirect="search" id="search_text">
                   <span class="kt-input-icon__icon kt-input-icon__icon--left">

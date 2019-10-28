@@ -102,7 +102,10 @@ var KTWizard2 = function () {
     };
 
     var initSubmit = function() {
-        var btn = formEl.find('[data-ktwizard-type="action-submit"]');
+        var request_name = "create";
+
+        var form = $('[data-form-type="' + request_name + '"]');
+        var btn = $('[data-type-button="' + request_name + '"]');
 
         btn.on('click', function(e) {
             e.preventDefault();
@@ -111,8 +114,8 @@ var KTWizard2 = function () {
                 KTApp.progress(btn);
 
                 $.ajax({
-                    url: '/development/bug',
-                    method: 'POST',
+                    url: form.data('form-url'),
+                    method: form.data('form-method'),
                     data: {
                         'bug_type': $('#type').val(),
                         'bug_priority': $('#priority').val(),
