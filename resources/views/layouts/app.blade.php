@@ -86,7 +86,7 @@
                   <h4 class="kt-menu__section-text">Development Access</h4>
                   <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-rocket-1"></i><span class="kt-menu__link-text">Bug Reports</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                <li class="kt-menu__item  kt-menu__item--submenu @if(mb_strpos(url(Route::current()->uri()), url('development/bug')) === 0 && Route::current()->getName() != 'bug.review') kt-menu__item--open kt-menu__item--here @endif" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-rocket-1"></i><span class="kt-menu__link-text">Bug Reports</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                     <ul class="kt-menu__subnav">
                       <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Utils</span></span></li>
