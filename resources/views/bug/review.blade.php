@@ -3,9 +3,9 @@
 
 @section('breadcrumb')
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
+  <a href="{{ route('bug.index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/review') }}" class="kt-subheader__breadcrumbs-link">Review Bug Reports</a>
+  <a href="{{ route('bug.review') }}" class="kt-subheader__breadcrumbs-link">Review Bug Reports</a>
 @endsection
 
 @section('content')
@@ -79,7 +79,7 @@
               @foreach ($bug_list as $bug)
               <tr>
                 <th scope="row">{{ $bug->id }}</th>
-                <td><a href="{{ route('bug/show', ['bug' => $bug]) }}">{{ $bug->subject }}</a></td>
+                <td><a href="{{ route('bug.show', ['bug' => $bug]) }}">{{ $bug->subject }}</a></td>
                 <td>{!! $bug->getType() !!}</td>
                 <td>{!! $bug->getStatus() !!}</td>
                 <td>{{ $bug->created_at->diffForHumans() }}</td>

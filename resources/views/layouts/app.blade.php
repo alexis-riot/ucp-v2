@@ -58,7 +58,7 @@
                     <ul class="kt-menu__subnav">
                       <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Utils</span></span></li>
                       <li class="kt-menu__item @if(Route::current()->getName() == 'profile') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('profile') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Personal Information</span></a></li>
-                      <li class="kt-menu__item @if(Route::current()->getName() == 'profile/password') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('profile/password') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Change Password</span></a></li>
+                      <li class="kt-menu__item @if(Route::current()->getName() == 'profile.password') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('profile.password') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Change Password</span></a></li>
                     </ul>
                   </div>
                 </li>
@@ -73,8 +73,8 @@
                       <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
                           <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Utils</span></span></li>
-                          <li class="kt-menu__item @if(Route::current()->getName() == 'character/overview') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('character/overview', ['id' => $character->id, 'slug' => $character->slug()]) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Overview</span></a></li>
-                          <li class="kt-menu__item @if(Route::current()->getName() == 'character/settings') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('character/settings', ['id' => $character->id, 'slug' => $character->slug()]) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Settings</span></a></li>
+                          <li class="kt-menu__item @if(Route::current()->getName() == 'character.overview') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('character.overview', ['id' => $character->id, 'slug' => $character->slug()]) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Overview</span></a></li>
+                          <li class="kt-menu__item @if(Route::current()->getName() == 'character.settings') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('character.settings', ['id' => $character->id, 'slug' => $character->slug()]) }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Settings</span></a></li>
                         </ul>
                       </div>
                     </li>
@@ -90,12 +90,12 @@
                   <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                     <ul class="kt-menu__subnav">
                       <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Utils</span></span></li>
-                      <li class="kt-menu__item @if(Route::current()->getName() == 'bug/create') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('bug/create') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Open New Ticket</span></a></li>
-                      <li class="kt-menu__item @if(Route::current()->getName() == 'bug/index') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('bug/index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">View Your Tickets</span></a></li>
+                      <li class="kt-menu__item @if(Route::current()->getName() == 'bug.create') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('bug.create') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Open New Ticket</span></a></li>
+                      <li class="kt-menu__item @if(Route::current()->getName() == 'bug.index') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('bug.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">View Your Tickets</span></a></li>
                     </ul>
                   </div>
                 </li>
-                <li class="kt-menu__item @if(Route::current()->getName() == 'bug/review') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('bug/review') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-rocket"></i><span class="kt-menu__link-text">Review Bug Reports</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--rounded kt-badge--danger"><i class="la la-lock"></i></span></span></a></li>
+                <li class="kt-menu__item @if(Route::current()->getName() == 'bug.review') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('bug.review') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-rocket"></i><span class="kt-menu__link-text">Review Bug Reports</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--rounded kt-badge--danger"><i class="la la-lock"></i></span></span></a></li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-ui"></i><span class="kt-menu__link-text">Test server</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                     <ul class="kt-menu__subnav">

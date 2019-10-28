@@ -31,7 +31,7 @@ Route::prefix('master')->group(function () {
         Route::get('profile', 'UserController@index')
             ->name('profile');
         Route::get('profile/password', 'UserController@password')
-            ->name('profile/password');
+            ->name('profile.password');
     });
     // Punishments
     Route::get('punishments', 'WarnController@index')
@@ -42,22 +42,14 @@ Route::group(['prefix' => 'character', 'middleware' => 'IsHisCharacter'], functi
     // Characters
     Route::get('{id}/{slug}/overview', 'CharacterController@overview')
         ->middleware('IsHisCharacter')
-        ->name('character/overview');
+        ->name('character.overview');
     Route::get('{id}/{slug}/settings', 'CharacterController@settings')
         ->middleware('IsHisCharacter')
-        ->name('character/settings');
+        ->name('character.settings');
 });
 
 Route::prefix('development')->group(function () {
     Route::get('bug/review', 'BugController@review')
-        ->name('bug/review');
-    Route::resource('bug', 'BugController')->names([
-        'index' => 'bug/index',
-        'create' => 'bug/create',
-        'store' => 'bug/store',
-        'show' => 'bug/show',
-        'edit' => 'bug/edit',
-        'update' => 'bug/update',
-        'destroy' => 'bug/destroy',
-    ]);
+        ->name('bug.review');
+    Route::resource('bug', 'BugController');
 });

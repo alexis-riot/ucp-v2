@@ -3,9 +3,9 @@
 
 @section('breadcrumb')
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
+  <a href="{{ route('bug.index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/create') }}" class="kt-subheader__breadcrumbs-link">Create ticket</a>
+  <a href="{{ route('bug.create') }}" class="kt-subheader__breadcrumbs-link">Create ticket</a>
 @endsection
 
 @section('head')
@@ -91,7 +91,7 @@
         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v2__wrapper">
 
           <!--begin: Form Wizard Form-->
-          <form method="POST" class="kt-form" id="kt_form" data-form-type="create" data-form-url="{{ route('bug/index') }}" data-form-method="POST">
+          <form method="POST" class="kt-form" id="kt_form" data-form-type="create" data-form-url="{{ route('bug.index') }}" data-form-method="POST">
             @csrf
             <!--begin: Form Wizard Step 1-->
               <div class="kt-wizard-v2__content" data-ktwizard-type="step-content" data-ktwizard-state="current">

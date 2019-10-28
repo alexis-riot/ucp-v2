@@ -5,7 +5,7 @@
   <span class="kt-subheader__breadcrumbs-separator"></span>
   <a href="{{ route('profile') }}" class="kt-subheader__breadcrumbs-link">My Profile</a>
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('profile/password') }}" class="kt-subheader__breadcrumbs-link">Change Password</a>
+  <a href="{{ route('profile.password') }}" class="kt-subheader__breadcrumbs-link">Change Password</a>
 @endsection
 
 @section('content-profile')

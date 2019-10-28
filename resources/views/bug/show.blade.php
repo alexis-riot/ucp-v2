@@ -3,11 +3,11 @@
 
 @section('breadcrumb')
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
+  <a href="{{ route('bug.index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/index') }}" class="kt-subheader__breadcrumbs-link">View your tickets</a>
+  <a href="{{ route('bug.index') }}" class="kt-subheader__breadcrumbs-link">View your tickets</a>
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="{{ route('bug/index') }}" class="kt-subheader__breadcrumbs-link">Ticket #{{ $ticket->id }}</a>
+  <a href="{{ route('bug.index') }}" class="kt-subheader__breadcrumbs-link">Ticket #{{ $ticket->id }}</a>
 @endsection
 
 @section('content')
@@ -153,7 +153,7 @@
             <!--Begin:: Tab Content-->
             <div class="tab-pane active" id="kt_apps_contacts_view_tab_1" role="tabpanel">
               @if ($ticket->status != 7)
-                <form method="POST" data-form-type="add_comment" data-form-url="{{ route('bug/update', ['bug' => $ticket]) }}" data-form-method="PATCH">
+                <form method="POST" data-form-type="add_comment" data-form-url="{{ route('bug.update', ['bug' => $ticket]) }}" data-form-method="PATCH">
                   <div class="form-group">
                     <div class="summernote"></div>
                   </div>
@@ -288,7 +288,7 @@
             @if (Auth::user()->can('ticket-update-settings'))
               <!--Begin:: Tab Content-->
               <div class="tab-pane" id="kt_apps_contacts_view_tab_4" role="tabpanel">
-                <form data-form-type="update" data-form-url="{{ route('bug/update', ['bug' => $ticket]) }}" data-form-method="PATCH" class="kt-form kt-form--label-right">
+                <form data-form-type="update" data-form-url="{{ route('bug.update', ['bug' => $ticket]) }}" data-form-method="PATCH" class="kt-form kt-form--label-right">
                   @csrf
                   <div class="kt-form__body">
                     <div class="kt-section kt-section--first">

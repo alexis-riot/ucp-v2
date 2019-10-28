@@ -129,7 +129,7 @@ class BugController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => "Your bug report was submitted.",
-                'redirect' => route('bug/show', ['bug' => $bugTicket])
+                'redirect' => route('bug.show', ['bug' => $bugTicket])
             ], 200);
         }
     }
@@ -236,7 +236,7 @@ class BugController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => "The ticket was updated.",
-                    'redirect' => route('bug/show', ['bug' => $bug])
+                    'redirect' => route('bug.show', ['bug' => $bug])
                 ], 200);
             }
         }
@@ -271,7 +271,7 @@ class BugController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => "The comment was added to the ticket.",
-                    'redirect' => route('bug/show', ['bug' => $bug])
+                    'redirect' => route('bug.show', ['bug' => $bug])
                 ], 200);
             }
         }
