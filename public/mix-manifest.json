@@ -1,6 +1,7 @@
 {
     "/js/global.js": "/js/global.js",
     "/css/app.css": "/css/app.css",
+    "/css/pages/error/error.css": "/css/pages/error/error.css",
     "/css/login.css": "/css/login.css",
     "/js/scripts.js": "/js/scripts.js",
     "/js/login.js": "/js/login.js"

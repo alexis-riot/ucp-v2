@@ -10,7 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="{{ asset('images/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('images/logos/favicon-mcrp.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('images/logos/favicon-mcrp.png') }}" />
+
     @yield('head')
   </head>
 

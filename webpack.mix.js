@@ -19,6 +19,7 @@ mix.copyDirectory('resources/fonts', 'public/fonts');
 mix.copyDirectory('resources/css/pages', 'public/css/pages');
 mix.copyDirectory('resources/js/pages', 'public/js/pages');
 
+mix.sass('resources/sass/pages/error/error.scss', 'public/css/pages/error');
 
 mix.sass('resources/sass/login.scss', 'public/css');
 mix.copy('resources/js/login.js', 'public/js');

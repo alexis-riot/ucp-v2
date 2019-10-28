@@ -15,7 +15,8 @@
   <link href="{{ asset('css/login.css') }}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
-  <link rel="shortcut icon" href="{{ asset('images/logos/favicon.ico') }}" />
+  <link rel="shortcut icon" href="{{ asset('images/logos/favicon-mcrp.png') }}" />
+  <link rel="apple-touch-icon" href="{{ asset('images/logos/favicon-mcrp.png') }}" />
 </head>
 
 <!-- end::Head -->
