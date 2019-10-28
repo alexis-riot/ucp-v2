@@ -13,12 +13,12 @@ class CreateBugsImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bugs_images', function (Blueprint $table) {
+        Schema::create('cp_bugs_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('bug_id');
             $table->string('path', 100);
 
-            $table->foreign('bug_id')->references('id')->on('bugs_tickets');
+            $table->foreign('bug_id')->references('id')->on('cp_bugs_tickets');
 
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreateBugsImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bugs_images');
+        Schema::dropIfExists('cp_bugs_images');
     }
 }

@@ -13,7 +13,8 @@ class AddDataAccountsDb extends Migration
      */
     public function up()
     {
-        Schema::connection('db_server')->table('accounts', function (Blueprint $table) {
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->bigIncrements('id')->change();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -27,7 +28,7 @@ class AddDataAccountsDb extends Migration
      */
     public function down()
     {
-        Schema::connection('db_server')->table('accounts', function (Blueprint $table) {
+        Schema::table('accounts', function (Blueprint $table) {
             $table->dropColumn('email_verified_at');
             $table->dropRememberToken();
             $table->dropTimestamps();

@@ -13,12 +13,13 @@ class CreatePermissionsGroupsListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions_groups_lists', function (Blueprint $table) {
+        Schema::create('cp_permissions_groups_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('permission_id');
-            $table->foreign('group_id')->references('id')->on('permissions_groups');
-            $table->foreign('permission_id')->references('id')->on('permissions');
+
+            $table->foreign('group_id')->references('id')->on('cp_permissions_groups');
+            $table->foreign('permission_id')->references('id')->on('cp_permissions');
         });
     }
 
@@ -29,6 +30,6 @@ class CreatePermissionsGroupsListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions_groups_lists');
+        Schema::dropIfExists('cp_permissions_groups_lists');
     }
 }

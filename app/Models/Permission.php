@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
+    protected $table = "cp_permissions";
+
     public function groupsList()
     {
         return $this->hasMany('App\Models\PermissionGroupList');

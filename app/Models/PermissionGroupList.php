@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PermissionGroupList extends Model
 {
-    protected $table = "permissions_groups_lists";
+    protected $table = "cp_permissions_groups_lists";
 }

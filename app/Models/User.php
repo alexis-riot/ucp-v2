@@ -11,7 +11,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $connection = "db_server";
     protected $table = "accounts";
     /**
      * The attributes that are mass assignable.
@@ -69,7 +68,7 @@ class User extends Authenticatable
         if ($this->developer > 0)
             $rankName = "Developer";
         if ($this->admin > 0) {
-            $rankName = DB::connection('db_server')->table('staff_levels')->where('levelID', $this->admin)->value('levelName');
+            $rankName = DB::table('staff_levels')->where('levelID', $this->admin)->value('levelName');
         }
         return $rankName;
     }

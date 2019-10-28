@@ -13,7 +13,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('cp_permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('permission', 30);
             $table->string('tag', 50);
@@ -28,6 +28,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('cp_permissions');
     }
 }

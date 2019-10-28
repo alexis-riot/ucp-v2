@@ -13,11 +13,13 @@ class CreatePermissionsGroupsUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions_groups_users', function (Blueprint $table) {
+        Schema::create('cp_permissions_groups_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('account_id');
+            $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('group_id');
-            $table->foreign('group_id')->references('id')->on('permissions_groups');
+
+            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('group_id')->references('id')->on('cp_permissions_groups');
         });
     }
 
@@ -28,6 +30,6 @@ class CreatePermissionsGroupsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions_groups_users');
+        Schema::dropIfExists('cp_permissions_groups_users');
     }
 }

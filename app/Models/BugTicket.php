@@ -27,7 +27,7 @@ class BugTicket extends Model
         '<span class="kt-badge kt-badge--dark kt-badge--inline kt-badge--pill kt-badge--rounded">Urgent</span>', // 3
     ];
 
-    protected $table = "bugs_tickets";
+    protected $table = "cp_bugs_tickets";
     public $timestamps = true;
 
     public function getStatus()

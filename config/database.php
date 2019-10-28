@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'db_panel'),
+    'default' => env('DB_CONNECTION', 'db_main'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,14 +43,14 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'db_panel' => [
+        'db_main' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE_PANEL', 'localhost'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_MAIN_HOST', '127.0.0.1'),
+            'port' => env('DB_MAIN_PORT', '3306'),
+            'database' => env('DB_MAIN_DATABASE', 'localhost'),
+            'username' => env('DB_MAIN_USERNAME', 'root'),
+            'password' => env('DB_MAIN_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -63,14 +63,14 @@ return [
             ]) : [],
         ],
 
-        'db_server' => [
+        'db_test_server' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE_SERVER', 'localhost'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_TEST_SERVER_HOST', '127.0.0.1'),
+            'port' => env('DB_TEST_SERVER_PORT', '3306'),
+            'database' => env('DB_TEST_SERVER_DATABASE', 'localhost'),
+            'username' => env('DB_TEST_SERVER_USERNAME', 'root'),
+            'password' => env('DB_TEST_SERVER_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -86,11 +86,11 @@ return [
         'db_logs' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE_LOGS', 'localhost'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_LOGS_HOST', '127.0.0.1'),
+            'port' => env('DB_LOGS_PORT', '3306'),
+            'database' => env('DB_LOGS_DATABASE', 'localhost'),
+            'username' => env('DB_LOGS_USERNAME', 'root'),
+            'password' => env('DB_LOGS_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

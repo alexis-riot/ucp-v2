@@ -13,15 +13,16 @@ class CreateBugsLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bugs_logs', function (Blueprint $table) {
+        Schema::create('cp_bugs_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('bug_id');
-            $table->integer('account_id');
+            $table->unsignedBigInteger('account_id');
 
             $table->string('logs', 250);
 
-            $table->foreign('bug_id')->references('id')->on('bugs_tickets');
+            $table->foreign('bug_id')->references('id')->on('cp_bugs_tickets');
+            $table->foreign('account_id')->references('id')->on('accounts');
 
             $table->timestamps();
         });
@@ -34,6 +35,6 @@ class CreateBugsLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bugs_logs');
+        Schema::dropIfExists('cp_bugs_logs');
     }
 }

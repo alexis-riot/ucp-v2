@@ -13,11 +13,11 @@ class CreateBugsTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bugs_tickets', function (Blueprint $table) {
+        Schema::create('cp_bugs_tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('type');
-            $table->integer('account_id');
+            $table->unsignedBigInteger('account_id');
 
             $table->string('subject');
             $table->integer('priority');
@@ -27,6 +27,8 @@ class CreateBugsTicketsTable extends Migration
             $table->integer('developer_assigned')->default(-1);
 
             $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -37,6 +39,6 @@ class CreateBugsTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bugs_tickets');
+        Schema::dropIfExists('cp_bugs_tickets');
     }
 }

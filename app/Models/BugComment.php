@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BugComment extends Model
 {
-    protected $table = "bugs_comments";
+    protected $table = "cp_bugs_comments";
 
     public function user()
     {

@@ -13,12 +13,14 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('cp_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('account_id');
+            $table->unsignedBigInteger('account_id');
             $table->string('avatar')->nullable();
             $table->string('timezone')->nullable();
             $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('cp_profiles');
     }
 }
