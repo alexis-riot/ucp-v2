@@ -188,10 +188,9 @@
                   </div>
                 </div>
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
-                  <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({{ asset('images/misc/bg-1.jpg') }})">
+                  <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({{ asset('images/bg/bg-profile.png') }})">
                     <div class="kt-user-card__avatar">
-                      <img class="kt-hidden" alt="Pic" src="{{ asset('images/users/300_25.jpg') }}" />
-                      <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
+                      <img alt="Pic" src="{{ asset('images/avatars/gtav03.png') }}" />
                     </div>
                     <div class="kt-user-card__name">
                       {{ Auth::user()->username }}
