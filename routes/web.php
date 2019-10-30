@@ -49,7 +49,12 @@ Route::group(['prefix' => 'character', 'middleware' => 'IsHisCharacter'], functi
 });
 
 Route::prefix('development')->group(function () {
+    // Development
     Route::get('bug/review', 'BugController@review')
         ->name('bug.review');
     Route::resource('bug', 'BugController');
+});
+
+Route::prefix('admin')->group(function () {
+
 });

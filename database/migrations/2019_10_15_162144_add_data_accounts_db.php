@@ -14,7 +14,6 @@ class AddDataAccountsDb extends Migration
     public function up()
     {
         Schema::table('accounts', function (Blueprint $table) {
-            $table->bigIncrements('id')->change();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

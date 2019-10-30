@@ -17,7 +17,7 @@ class CreateBugsTicketsTable extends Migration
             $table->bigIncrements('id');
 
             $table->integer('type');
-            $table->unsignedBigInteger('account_id');
+            $table->unsignedInteger('account_id');
 
             $table->string('subject');
             $table->integer('priority');
