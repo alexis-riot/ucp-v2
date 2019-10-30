@@ -15,7 +15,7 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('cp_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('account_id');
+            $table->integer('account_id');
             $table->string('avatar')->nullable();
             $table->string('timezone')->nullable();
             $table->timestamps();

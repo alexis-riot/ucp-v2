@@ -15,7 +15,7 @@ class CreatePermissionsGroupsUsersTable extends Migration
     {
         Schema::create('cp_permissions_groups_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('account_id');
+            $table->integer('account_id');
             $table->unsignedBigInteger('group_id');
 
             $table->foreign('account_id')->references('id')->on('accounts');

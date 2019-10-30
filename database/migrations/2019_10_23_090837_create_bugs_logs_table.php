@@ -17,7 +17,7 @@ class CreateBugsLogsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('bug_id');
-            $table->unsignedInteger('account_id');
+            $table->integer('account_id');
 
             $table->string('logs', 250);
 

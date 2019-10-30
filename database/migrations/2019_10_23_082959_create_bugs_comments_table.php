@@ -17,7 +17,7 @@ class CreateBugsCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('bug_id');
 
-            $table->unsignedInteger('account_id');
+            $table->integer('account_id');
             $table->text('comment');
 
             $table->foreign('bug_id')->references('id')->on('cp_bugs_tickets');
