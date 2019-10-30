@@ -16,7 +16,6 @@ class AddDataAccountsDb extends Migration
         Schema::table('accounts', function (Blueprint $table) {
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 
