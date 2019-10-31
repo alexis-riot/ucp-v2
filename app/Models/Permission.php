@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     protected $table = "cp_permissions";
+    public $timestamps = false;
 
     public function groupsList()
     {
