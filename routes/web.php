@@ -56,8 +56,10 @@ Route::prefix('development')->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
-    Route::resource('usergroup', 'UsergroupController')
-        ->except(['show']);
-    Route::resource('usergroup/permission', 'PermissionController')
-        ->except(['show', 'index']);
+    Route::prefix('system')->group(function () {
+        Route::resource('usergroup', 'UsergroupController')
+            ->except(['show']);
+        Route::resource('usergroup/permission', 'PermissionController')
+            ->except(['show', 'index']);
+    });
 });
