@@ -137,13 +137,13 @@
                   <i class="flaticon2-time"></i> Activities
                 </a>
               </li>
-              @if (Auth::user()->can('ticket-update-settings'))
+              @can('ticket-update-settings', Auth::user())
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#kt_apps_contacts_view_tab_4" role="tab">
                   <i class="flaticon2-gear"></i> Settings
                 </a>
               </li>
-              @endif
+              @endcan
             </ul>
           </div>
         </div>
@@ -285,7 +285,7 @@
             </div>
             <!--End:: Tab Content-->
 
-            @if (Auth::user()->can('ticket-update-settings'))
+            @can('ticket-update-settings', Auth::user())
               <!--Begin:: Tab Content-->
               <div class="tab-pane" id="kt_apps_contacts_view_tab_4" role="tabpanel">
                 <form data-form-type="update" data-form-url="{{ route('bug.update', ['bug' => $ticket]) }}" data-form-method="PATCH" class="kt-form kt-form--label-right">

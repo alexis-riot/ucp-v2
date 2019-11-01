@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\BugTicket' => 'App\Policies\BugTicketPolicy',
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy',
     ];
 
     /**
@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('ticket-update-settings', 'App\Policies\BugTicketPolicy@update');
+        Gate::define('user-permission', 'App\Policies\UserPolicy@permission');
 
     }
 }
