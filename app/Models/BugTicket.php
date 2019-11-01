@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class BugTicket extends Model
 {
+    protected $table = "cp_bugs_tickets";
+    protected $fillable = [
+        'type', 'account_id', 'subject', 'priority',
+        'status', 'tester_assigned', 'developer_assigned',
+    ];
+    public $timestamps = true;
+
     public static $statusString = [
         '<span class="kt-badge kt-badge--info kt-badge--inline kt-badge--pill kt-badge--rounded">Pending Review</span>', // 0
         '<span class="kt-badge kt-badge--brand kt-badge--inline kt-badge--pill kt-badge--rounded">Pending Testing</span>', // 1
@@ -26,9 +33,6 @@ class BugTicket extends Model
         '<span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">High</span>', // 2
         '<span class="kt-badge kt-badge--dark kt-badge--inline kt-badge--pill kt-badge--rounded">Urgent</span>', // 3
     ];
-
-    protected $table = "cp_bugs_tickets";
-    public $timestamps = true;
 
     public function getStatus()
     {

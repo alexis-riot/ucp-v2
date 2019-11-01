@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Bug\StoreCommentRequest;
+use App\Http\Requests\Bug\StoreRequest;
+use App\Http\Requests\Bug\UpdateRequest;
 use App\Models\BugComment;
 use App\Models\BugImage;
 use App\Models\BugLog;
@@ -9,7 +12,6 @@ use App\Models\BugTicket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class BugController extends Controller
 {
@@ -86,52 +88,35 @@ class BugController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $rules = array(
-            'bug_type'          => 'required',
-            'bug_priority'      => 'required',
-            'subject'           => 'required',
-            'content'           => 'required',
-            //'images'            => 'required',
-        );
-        $validator = Validator::make($request->all(), $rules);
+        $bugTicket = BugTicket::create([
+            'type' => $request->input('bug_type'),
+            'account_id' => Auth::user()->id,
+            'subject' => $request->input('subject'),
+            'priority' => $request->input('bug_priority'),
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => "An error was encoured.",
-            ], 200);
-        } else {
-            $bugTicket = new BugTicket;
-            $bugTicket->type = $request->input('bug_type');
-            $bugTicket->account_id = Auth::user()->id;
-            $bugTicket->subject = $request->input('subject');
-            $bugTicket->priority = $request->input('bug_priority');
-            $bugTicket->save();
+        ]);
 
-            $commentTicket = new BugComment;
-            $commentTicket->bug_id = $bugTicket->id;
-            $commentTicket->account_id = Auth::user()->id;
-            $commentTicket->comment = $request->input('content');
-            $commentTicket->save();
+        BugComment::create([
+            'bug_id' => $bugTicket->id,
+            'account_id' => Auth::user()->id,
+            'comment' => $request->input('content'),
+        ]);
 
-            // Creating images
-            if ($request->input('images')) {
-                foreach ($request->input('images') as $image) {
-                    $bugImage = new BugImage;
-                    $bugImage->bug_id = $bugTicket->id;
-                    $bugImage->path = $image;
-                    $bugImage->save();
-                }
-            }
+        // Creating images
+        collect($request->input('images'))->map(function($image) use ($bugTicket) {
+            BugImage::create([
+                'bug_id' => $bugTicket->id,
+                'path' => $image,
+            ]);
+        });
 
-            return response()->json([
-                'status' => 'success',
-                'message' => "Your bug report was submitted.",
-                'redirect' => route('bug.show', ['bug' => $bugTicket])
-            ], 200);
-        }
+        return response()->json([
+            'status' => 'success',
+            'message' => "Your bug report was submitted.",
+            'redirect' => route('bug.show', ['bug' => $bugTicket])
+        ], 200);
     }
 
     /**
@@ -154,153 +139,95 @@ class BugController extends Controller
      * @param  \App\BugTicket  $bugsTickets
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BugTicket $bug)
+    public function update(UpdateRequest $request, BugTicket $bug)
     {
         $logTicket = array();
-        if ($request->input('action') == "update") {
-            $this->authorize('ticket-update-settings');
+        $this->authorize('ticket-update-settings');
+        if ($bug->subject != $request->input('settings_subject')) {
+            $logTicket[] = sprintf("change the subject from \"%s\" to \"%s\".", $bug->subject, $request->input('settings_subject'));
+            $bug->subject = $request->input('settings_subject');
+        }
 
-            $rules = array(
-                'settings_type'          => 'required',
-            );
-            $validator = Validator::make($request->all(), $rules);
+        if ($bug->type != $request->input('settings_type')) {
+            $logTicket[] = sprintf("change the type from \"%s\" to \"%s\".", $bug->getType(), BugTicket::$typeString[$request->input('settings_type')]);
+            $bug->type = $request->input('settings_type');
+        }
 
-            if ($validator->fails()) {
+        if ($bug->status != $request->input('settings_status')) {
+            $logTicket[] = sprintf("change the status from %s to %s.", $bug->getStatus(), BugTicket::$statusString[(int)$request->input('settings_status')]);
+            $bug->status = $request->input('settings_status');
+        }
+
+        if (!empty($request->input('settings_developer'))) {
+            if (($developer = User::where('username', $request->input('settings_developer'))->first())) {
+                if ($bug->developer_assigned != $developer->id) {
+                    $logTicket[] = sprintf("change the developer assigned from %s to %s.", $bug->developer->username, $developer->username);
+                    $bug->developer_assigned = $developer->id;
+                }
+            }
+            else {
                 return response()->json([
                     'status' => 'error',
-                    'message' => "An error was encoured.",
-                ], 200);
-            } else {
-
-                if ($bug->subject != $request->input('settings_subject')) {
-                    $logTicket[] = sprintf("change the subject from \"%s\" to \"%s\".", $bug->subject, $request->input('settings_subject'));
-                    $bug->subject = $request->input('settings_subject');
-                }
-
-                if ($bug->type != $request->input('settings_type')) {
-                    $logTicket[] = sprintf("change the type from \"%s\" to \"%s\".", $bug->getType(), BugTicket::$typeString[$request->input('settings_type')]);
-                    $bug->type = $request->input('settings_type');
-                }
-
-                if ($bug->status != $request->input('settings_status')) {
-                    $logTicket[] = sprintf("change the status from %s to %s.", $bug->getStatus(), BugTicket::$statusString[(int)$request->input('settings_status')]);
-                    $bug->status = $request->input('settings_status');
-                }
-
-
-                if (!empty($request->input('settings_developer'))) {
-                    if (($developer = User::where('username', $request->input('settings_developer'))->first())) {
-                        if ($bug->developer_assigned != $developer->id) {
-                            $logTicket[] = sprintf("change the developer assigned from %s to %s.", $bug->developer->username, $developer->username);
-                            $bug->developer_assigned = $developer->id;
-                        }
-                    }
-                    else {
-                        return response()->json([
-                            'status' => 'error',
-                            'message' => "The user mentionned has developer was not found.",
-                        ], 200);
-                    }
-                } else {
-                    $bug->developer_assigned = -1;
-                }
-
-
-                if (!empty($request->input('settings_tester'))) {
-                    if (($tester = User::where('username', $request->input('settings_tester'))->first())) {
-                        if ($bug->tester_assigned != $tester->id) {
-                            $logTicket[] = sprintf("change the tester assigned from %s to %s.", $bug->tester->username, $tester->username);
-                            $bug->tester_assigned = $tester->id;
-                        }
-                    }
-                    else {
-                        return response()->json([
-                            'status' => 'error',
-                            'message' => "The user mentionned has tester was not found.",
-                        ], 200);
-                    }
-                } else {
-                    $bug->tester_assigned = -1;
-                }
-
-                $bug->save();
-
-                foreach ($logTicket as $log) {
-                    $bugLog = new BugLog;
-                    $bugLog->bug_id = $bug->id;
-                    $bugLog->account_id = Auth::user()->id;
-                    $bugLog->logs = $log;
-                    $bugLog->save();
-                }
-
-                return response()->json([
-                    'status' => 'success',
-                    'message' => "The ticket was updated.",
-                    'redirect' => route('bug.show', ['bug' => $bug])
+                    'message' => "The user mentionned has developer was not found.",
                 ], 200);
             }
+        } else {
+            $bug->developer_assigned = -1;
         }
-        if ($request->input('action') == "add_comment") {
-            $rules = array(
-                'comment' => 'required',
-            );
-            $validator = Validator::make($request->all(), $rules);
 
-            if ($validator->fails()) {
+        if (!empty($request->input('settings_tester'))) {
+            if (($tester = User::where('username', $request->input('settings_tester'))->first())) {
+                if ($bug->tester_assigned != $tester->id) {
+                    $logTicket[] = sprintf("change the tester assigned from %s to %s.", $bug->tester->username, $tester->username);
+                    $bug->tester_assigned = $tester->id;
+                }
+            }
+            else {
                 return response()->json([
                     'status' => 'error',
-                    'message' => "An error was encoured.",
-                ], 200);
-            } else {
-                // Creating the comment
-                $bugComment = new BugComment;
-
-                $bugComment->bug_id = $bug->id;
-                $bugComment->account_id = Auth::user()->id;
-                $bugComment->comment = $request->input('comment');
-
-                $bugComment->save();
-
-                // Update the status of the bug ticket
-                if ($bug->account_id == Auth::user()->id)
-                    $bug->status = 3;
-                else
-                    $bug->status = 6;
-                $bug->save();
-
-                return response()->json([
-                    'status' => 'success',
-                    'message' => "The comment was added to the ticket.",
-                    'redirect' => route('bug.show', ['bug' => $bug])
+                    'message' => "The user mentionned has tester was not found.",
                 ], 200);
             }
+        } else {
+            $bug->tester_assigned = -1;
         }
+
+        $bug->save();
+        collect($logTicket)->map(function($log) use ($bug) {
+            BugLog::create([
+                'bug_id' => $bug->id,
+                'account_id' => Auth::user()->id,
+                'logs' => $log,
+            ]);
+        });
 
         return response()->json([
-            'status' => 'error',
-            'message' => "An error was encoured2.",
+            'status' => 'success',
+            'message' => "The ticket was updated.",
+            'redirect' => route('bug.show', ['bug' => $bug])
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\BugTicket  $bugsTickets
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BugTicket $bugsTickets)
+    public function storeComment(StoreCommentRequest $request, BugTicket $bug)
     {
-        //
-    }
+        // Creating the comment
+        BugComment::create([
+            'bug_id' => $bug->id,
+            'account_id' => Auth::user()->id,
+            'comment' => $request->input('comment'),
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\BugTicket  $bugsTickets
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(BugTicket $bugsTickets)
-    {
-        //
+        // Update the status of the bug ticket
+        if ($bug->account_id == Auth::user()->id)
+            $bug->status = 3;
+        else
+            $bug->status = 6;
+        $bug->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "The comment was added to the ticket.",
+            'redirect' => route('bug.show', ['bug' => $bug])
+        ], 200);
     }
 }

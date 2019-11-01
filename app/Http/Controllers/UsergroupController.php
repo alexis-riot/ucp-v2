@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Usergroup\StoreRequest;
+use App\Http\Requests\Usergroup\UpdateRequest;
 use App\Models\Permission;
 use App\Models\PermissionGroup;
 use App\Models\PermissionGroupList;
 use App\Models\PermissionGroupUser;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class UsergroupController extends Controller
 {
@@ -41,31 +40,19 @@ class UsergroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $rules = array(
-            'name' => 'required|unique:cp_permissions_groups',
-        );
-        $validator = Validator::make($request->all(), $rules);
+        $usergroup = PermissionGroup::create([
+            'name' => $request->input('name'),
+        ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => "An error was encoured.",
-            ], 200);
-        } else {
+        collect($request->input('permissions'))->map(function($permission) use ($usergroup) {
+            PermissionGroupList::create([
+                'group_id' => $usergroup->id,
+                'permission_id' => $permission,
+            ]);
+        });
 
-            $usergroup = new PermissionGroup;
-            $usergroup->name = $request->input('name');
-            $usergroup->save();
-
-            foreach ($request->input('permissions') as $permission) {
-                $usergroup_permission = new PermissionGroupList;
-                $usergroup_permission->group_id = $usergroup->id;
-                $usergroup_permission->permission_id = $permission;
-                $usergroup_permission->save();
-            }
-        }
         return response()->json([
             'status' => 'success',
             'message' => "You have created a new usergroup.",
@@ -93,37 +80,22 @@ class UsergroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $rules = array(
-            'name' => [
-                'required',
-                Rule::unique('cp_permissions_groups')->ignore($id),
-            ],
-        );
-        $validator = Validator::make($request->all(), $rules);
+        $usergroup = PermissionGroup::findOrFail($id);
+        $usergroup->name = $request->input('name');
+        $usergroup->save();
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => "An error was encoured.",
-            ], 200);
-        } else {
+        // Deleting all existing permissions
+        PermissionGroupList::where('group_id', $usergroup->id)->delete();
 
-            $usergroup = PermissionGroup::findOrFail($id);
-            $usergroup->name = $request->input('name');
-            $usergroup->save();
+        collect($request->input('permissions'))->map(function($permission) use ($usergroup) {
+            PermissionGroupList::create([
+                'group_id' => $usergroup->id,
+                'permission_id' => $permission,
+            ]);
+        });
 
-            // Deleting all existing permissions
-            PermissionGroupList::where('group_id', $usergroup->id)->delete();
-
-            foreach ($request->input('permissions') as $permission) {
-                $usergroup_permission = new PermissionGroupList;
-                $usergroup_permission->group_id = $usergroup->id;
-                $usergroup_permission->permission_id = $permission;
-                $usergroup_permission->save();
-            }
-        }
         return response()->json([
             'status' => 'success',
             'message' => "You have updated the usergroup.",

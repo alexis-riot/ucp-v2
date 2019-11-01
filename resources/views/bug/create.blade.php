@@ -17,12 +17,8 @@
     <div class="kt-portlet__body kt-portlet__body--fit">
       <div class="kt-grid  kt-wizard-v2 kt-wizard-v2--white" id="kt_wizard_v2" data-ktwizard-state="step-first">
         <div class="kt-grid__item kt-wizard-v2__aside">
-
-          <!--begin: Form Wizard Nav -->
           <div class="kt-wizard-v2__nav">
             <div class="kt-wizard-v2__nav-items kt-wizard-v2__nav-items--clickable">
-
-              <!--doc: Replace A tag with SPAN tag to disable the step link click -->
               <div class="kt-wizard-v2__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
                 <div class="kt-wizard-v2__nav-body">
                   <div class="kt-wizard-v2__nav-icon">
@@ -85,15 +81,10 @@
               </div>
             </div>
           </div>
-
-          <!--end: Form Wizard Nav -->
         </div>
-        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v2__wrapper">
 
-          <!--begin: Form Wizard Form-->
-          <form method="POST" class="kt-form" id="kt_form" data-form-type="create" data-form-url="{{ route('bug.index') }}" data-form-method="POST">
-            @csrf
-            <!--begin: Form Wizard Step 1-->
+        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v2__wrapper">
+          <form method="POST" data-form-method="POST" class="kt-form" id="kt_form" data-form-type="create" data-form-url="{{ route('bug.store') }}">
               <div class="kt-wizard-v2__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
                 <div class="kt-heading kt-heading--md">Your Account Details</div>
                 <div class="kt-form__section kt-form__section--first">
@@ -252,18 +243,14 @@
               <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
                 Previous
               </button>
-              <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+              <button type="button" data-type-button="create" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
                 Submit
               </button>
               <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                 Next Step
               </button>
             </div>
-
-            <!--end: Form Actions -->
           </form>
-
-          <!--end: Form Wizard Form-->
         </div>
       </div>
     </div>

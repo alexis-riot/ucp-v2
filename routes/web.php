@@ -52,14 +52,25 @@ Route::prefix('development')->group(function () {
     // Development
     Route::get('bug/review', 'BugController@review')
         ->name('bug.review');
-    Route::resource('bug', 'BugController');
+    Route::resource('bug', 'BugController')
+        ->except(['edit', 'destroy']);
+    Route::match(['put', 'patch'], 'bug/create/comment/{bug}', 'BugController@storeComment')
+        ->name('bug.create.comment');
 });
 
 Route::prefix('admin')->group(function () {
+    // Admin
     Route::prefix('system')->group(function () {
+        // System
         Route::resource('usergroup', 'UsergroupController')
             ->except(['show']);
         Route::resource('usergroup/permission', 'PermissionController')
             ->except(['show', 'index']);
     });
+
+    Route::prefix('user')->group(function () {
+        Route::get('staff', 'BugController@review')
+            ->name('staff');
+    });
+
 });

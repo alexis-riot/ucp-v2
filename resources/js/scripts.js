@@ -46,12 +46,12 @@ window.AjaxResponse = function (data) {
     }
 };
 
-window.AjaxResponseDefault = function(data, btn) {
+window.AjaxResponseDefault = function(data) {
     swal.fire({
         "title": "",
-        "text": "An error occurred on the server",
+        "text": (data.responseJSON.message ? data.responseJSON.message : "An error occurred on the server"),
         "type": "error",
         "confirmButtonClass": "btn btn-secondary"
     });
-    KTApp.unprogress($('[data-type="action-submit"]'));
+    KTApp.unprogress($('button[class*="kt-spinner"]'));
 };

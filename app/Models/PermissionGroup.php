@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class PermissionGroup extends Model
 {
     protected $table = "cp_permissions_groups";
+    protected $fillable = [
+        'name',
+    ];
     public $timestamps = false;
 
     public function group_user()

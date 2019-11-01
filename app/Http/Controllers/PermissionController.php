@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Permission\StoreRequest;
+use App\Http\Requests\Permission\UpdateRequest;
 use App\Models\Permission;
-use App\Models\PermissionGroup;
+use App\Models\PermissionGroupList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -27,27 +29,14 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $rules = array(
-            'name' => 'required|unique:cp_permissions,permission',
-            'group' => 'required',
-            'description' => 'required',
-        );
-        $validator = Validator::make($request->all(), $rules);
+        Permission::create([
+            'permission' => $request->input('name'),
+            'tag' => $request->input('group'),
+            'description' => $request->input('description'),
+        ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => "An error was encoured.",
-            ], 200);
-        } else {
-            $permission = new Permission;
-            $permission->permission = $request->input('name');
-            $permission->tag = $request->input('group');
-            $permission->description = $request->input('description');
-            $permission->save();
-        }
         return response()->json([
             'status' => 'success',
             'message' => "You have created a new permission.",
@@ -74,31 +63,14 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $rules = array(
-            'name' => [
-                'required',
-                Rule::unique('cp_permissions', 'permission')->ignore($id),
-            ],
-            'group' => 'required',
-            'description' => 'required',
-        );
+        $permission = Permission::findOrFail($id);
+        $permission->permission = $request->input('name');
+        $permission->tag = $request->input('group');
+        $permission->description = $request->input('description');
+        $permission->save();
 
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => "An error was encoured.",
-            ], 200);
-        } else {
-            $permission = Permission::findOrFail($id);
-            $permission->permission = $request->input('name');
-            $permission->tag = $request->input('group');
-            $permission->description = $request->input('description');
-            $permission->save();
-        }
         return response()->json([
             'status' => 'success',
             'message' => "You have updated the permission.",
@@ -114,7 +86,9 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
+        PermissionGroupList::where('permission_id', $id)->delete();
         Permission::findOrFail($id)->delete();
+
         return response()->json([
             'status' => 'success',
             'message' => "You have deleted the permission.",

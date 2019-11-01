@@ -153,7 +153,7 @@
             <!--Begin:: Tab Content-->
             <div class="tab-pane active" id="kt_apps_contacts_view_tab_1" role="tabpanel">
               @if ($ticket->status != 7)
-                <form method="POST" data-form-type="add_comment" data-form-url="{{ route('bug.update', ['bug' => $ticket]) }}" data-form-method="PATCH">
+                <form method="POST" data-form-type="add_comment" data-form-url="{{ route('bug.create.comment', ['bug' => $ticket]) }}" data-form-method="PATCH">
                   <div class="form-group">
                     <div class="summernote"></div>
                   </div>
