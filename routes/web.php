@@ -69,7 +69,7 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('user')->group(function () {
-        Route::get('staff', 'BugController@review')
+        Route::get('staff', 'StaffController@index')
             ->name('staff');
     });
 

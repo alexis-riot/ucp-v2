@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Character', 'accountID', 'id');
     }
 
+    public function staff_level()
+    {
+        return $this->hasOne('App\Models\StaffLevel', 'levelID', 'admin');
+    }
+
     public function warns()
     {
         return $this->hasMany('App\Models\Warn', 'account', 'id');
