@@ -46,7 +46,7 @@ class UsergroupController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        collect($request->input('permissions'))->map(function($permission) use ($usergroup) {
+        collect($request->input('permissions'))->each(function($permission) use ($usergroup) {
             PermissionGroupList::create([
                 'group_id' => $usergroup->id,
                 'permission_id' => $permission,
@@ -80,16 +80,15 @@ class UsergroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, PermissionGroup $usergroup)
     {
-        $usergroup = PermissionGroup::findOrFail($id);
         $usergroup->name = $request->input('name');
         $usergroup->save();
 
         // Deleting all existing permissions
         PermissionGroupList::where('group_id', $usergroup->id)->delete();
 
-        collect($request->input('permissions'))->map(function($permission) use ($usergroup) {
+        collect($request->input('permissions'))->each(function($permission) use ($usergroup) {
             PermissionGroupList::create([
                 'group_id' => $usergroup->id,
                 'permission_id' => $permission,
