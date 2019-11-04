@@ -73,4 +73,11 @@ Route::prefix('admin')->group(function () {
             ->name('staff');
     });
 
+    Route::prefix('logs')->group(function () {
+        Route::get('server', 'LogServerController@index')
+            ->name('logs.server');
+        Route::get('server/{log}', 'LogServerController@show')
+            ->middleware('IsValidLogServerTable')
+            ->name('logs.server.show');
+    });
 });

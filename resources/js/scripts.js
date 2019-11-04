@@ -21,6 +21,7 @@ window.KTWizard = require("./global/components/base/wizard");
 require("./global/components/base/datatable/core.datatable");
 require("./global/components/base/datatable/datatable.checkbox");
 require("./global/components/base/datatable/datatable.rtl");
+require("./global/components/base/datatable/detail");
 
 // Layout scripts
 window.KTLayout = require("./global/layout/layout");

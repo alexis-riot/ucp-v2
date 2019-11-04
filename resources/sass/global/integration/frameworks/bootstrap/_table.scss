@@ -3,8 +3,7 @@
 //
 
 
-
-.table {
+table {
 
 	th, td{
 		&.table-center{
@@ -20,6 +19,20 @@
 			padding-bottom: 1rem;
 		}
 	}
+
+    tbody {
+        &.table-detailled {
+            tr {
+                &:hover {
+                    background-color: #dee9fd99;
+                    cursor: pointer;
+                }
+                &.detail-hidden {
+                    display: none;
+                }
+            }
+        }
+    }
 
 	tr.table-active {
 		td, th {
@@ -49,8 +62,8 @@
 			color: #9392a0;
 
 			&:nth-child(even){
-				background-color: kt-base-color(grey,1);	
-			}	
+				background-color: kt-base-color(grey,1);
+			}
 
 			td.table-row-title{
 				color: kt-base-color(label, 4);
@@ -76,6 +89,7 @@
 			}
 		}
 	}
+
 }
 
 .table:not(.table-bordered) {

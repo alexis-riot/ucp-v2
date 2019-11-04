@@ -62,7 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'IsHisCharacter' => \App\Http\Middleware\IsHisCharacter::class,
-        'isHisBugTicket' => \App\Http\Middleware\IsHisBugTicket::class,
+        'IsHisBugTicket' => \App\Http\Middleware\IsHisBugTicket::class,
+        'IsValidLogServerTable' => \App\Http\Middleware\IsValidLogServerTable::class,
         'permission' => \App\Http\Middleware\CheckPermission::class,
     ];
 

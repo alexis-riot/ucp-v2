@@ -18,7 +18,7 @@ class BugController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('isHisBugTicket', ['only' => ['show']]);
+        $this->middleware('IsHisBugTicket', ['only' => ['show']]);
     }
 
     /**

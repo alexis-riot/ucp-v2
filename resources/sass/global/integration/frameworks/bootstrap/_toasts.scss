@@ -64,8 +64,7 @@
     .toast-title {
         font-size: 0.9rem;
         font-weight: 500;
-        color: kt-base-color(label, 3);
-        margin-right: auto !important;       
+        margin-right: auto !important;
     }
 
     // Time
@@ -86,19 +85,19 @@
     // Close
     .toast-close {
         @include kt-button-reset();
-        
+
         margin-left: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
 
         i {
-            font-size: 1.1rem; 
+            font-size: 1.1rem;
             color: kt-base-color(label, 2);
             &:before {
                 line-height: 0;
                 vertical-align: middle;
-            }            
+            }
         }
 
         &:hover {
@@ -106,5 +105,5 @@
                 color: kt-brand-color();
             }
         }
-    }    
+    }
 }
