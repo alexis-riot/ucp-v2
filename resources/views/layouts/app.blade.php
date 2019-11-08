@@ -128,11 +128,11 @@
                     </ul>
                   </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu @if(mb_strpos(url(Route::current()->uri()), url('logs')) === 0) kt-menu__item--open kt-menu__item--here @endif" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-file-2"></i><span class="kt-menu__link-text">Server Logs</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                <li class="kt-menu__item  kt-menu__item--submenu @if(mb_strpos(url(Route::current()->uri()), url('admin/logs')) === 0) kt-menu__item--open kt-menu__item--here @endif" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-file-2"></i><span class="kt-menu__link-text">Server Logs</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                     <ul class="kt-menu__subnav">
                       <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Server Logs</span></span></li>
-                      <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Control Panel</span></a></li>
+                      <li class="kt-menu__item @if(Route::current()->getName() == 'logs.panel') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('logs.panel') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Control Panel</span></a></li>
                       <li class="kt-menu__item @if(Route::current()->getName() == 'logs.server') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('logs.server') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Server</span></a></li>
                     </ul>
                   </div>
