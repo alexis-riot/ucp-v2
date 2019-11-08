@@ -17,11 +17,16 @@
           <p class="mb-0">As a reminder, a strict regulation is available by <a class="kt-link kt-font-bold" href="https://mafiacity-rp.com/forums/index.php?threads/server-rules.2496/" target="_blank">clicking here</a>.</p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-12">
       <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
           <div class="kt-portlet__head-label">
             <span class="kt-portlet__head-icon">
-              <i class="kt-font-brand flaticon2-warning"></i>
+              <i class="kt-font-brand flaticon2-rocket-1"></i>
             </span>
             <h3 class="kt-portlet__head-title">
               Punishments Records
@@ -30,39 +35,22 @@
           </div>
         </div>
         <div class="kt-portlet__body">
-          <div class="kt-form kt-form--label-right kt-margin-t-20 kt-margin-b-10">
-            <div class="row align-items-center">
-              <div class="col-xl-8 order-2 order-xl-1">
-                <div class="row align-items-center">
-                  <div class="col-md-6 kt-margin-b-20-tablet-and-mobile">
-                    <div class="kt-input-icon kt-input-icon--left">
-                      <input type="text" class="form-control" placeholder="Search..." id="generalSearch">
-                      <span class="kt-input-icon__icon kt-input-icon__icon--left">
-                        <span><i class="la la-search"></i></span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="kt-portlet__body kt-portlet__body--fit">
-          <table class="kt-datatable" id="html_table" width="100%">
+          <table class="table table-striped table-light">
             <thead>
             <tr>
-              <th title="Field #1">Reason</th>
-              <th title="Field #2">Staff Name</th>
-              <th title="Field #3">Points</th>
-              <th title="Field #4">Date</th>
-              <th title="Field #5">Expiration</th>
+              <th>Reason</th>
+              <th>Staff Name</th>
+              <th>Points</th>
+              <th>Date</th>
+              <th>Expiration</th>
             </tr>
             </thead>
             <tbody>
+            @if ($user->warns->count() > 0)
               @foreach ($user->warns as $warn)
                 <tr>
                   <td>{{ $warn->name }}</td>
-                  <td>{{ $warn->author->username }}</td>
+                  <td>@if ($warn->author) {{ $warn->author->username }} @else N/A @endif</td>
                   <td>{{ $warn->points }}</td>
                   <td>{{ $warn->punishmentDate }}</td>
                   <td>
@@ -74,6 +62,11 @@
                   </td>
                 </tr>
               @endforeach
+            @else
+              <tr>
+                <td colspan="6" class="text-center">No records found</td>
+              </tr>
+            @endif
             </tbody>
           </table>
         </div>
