@@ -79,5 +79,10 @@ Route::prefix('admin')->group(function () {
         Route::get('server/{log}', 'LogServerController@show')
             ->middleware('IsValidLogServerTable')
             ->name('logs.server.show');
+
+        Route::get('panel', 'LogPanelController@index')
+            ->name('logs.panel');
+        Route::get('panel/{log}', 'LogPanelController@show')
+            ->name('logs.panel.show');
     });
 });

@@ -22,7 +22,7 @@ var DatatableDetail = function () {
             if (detail.length)
                 detail.toggleClass("detail-hidden");
             else {
-                toastr.info("There is no detailed description for the log you clicked on.", "No Detail");
+                toastr.info("There is no detailed description for the row you clicked on.", "No Detail");
             }
 
         });

@@ -72,14 +72,14 @@ class BugTicket extends Model
     public function developer()
     {
         if ($this->developer_assigned == -1)
-            return NULL;
+            return null;
         return $this->hasOne('App\Models\User', 'id', 'developer_assigned');
     }
 
     public function tester()
     {
         if ($this->tester_assigned == -1)
-            return NULL;
+            return null;
         return $this->hasOne('App\Models\User', 'id', 'tester_assigned');
     }
 }

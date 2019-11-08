@@ -54,12 +54,12 @@
             </div>
             <div class="col-md-3">
               <div class="form-group row">
-                <label for="example-text-input" class="col-3 col-form-label">Log Type:</label>
-                <div class="col-9">
-                  <select class="form-control" data-url-redirect="type" id="log_type">
+                <label for="example-text-input" class="col-5 col-form-label">Category Type:</label>
+                <div class="col-7">
+                  <select class="form-control" data-url-redirect="category" id="log_category">
                     <option>All</option>
-                    @foreach ($type_list as $key => $type)
-                      <option value="{{ $key }}" @if (app('request')->input('type') == $key && $parameters['type'] == true) selected @endif>{{ $type->category }}</option>
+                    @foreach ($category_list as $key => $category)
+                      <option value="{{ $key }}" @if (app('request')->input('category') == $key && $parameters['category'] == true) selected @endif>{{ $category->category }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -82,11 +82,11 @@
               @foreach ($logs_list as $log)
                 <tr class="content" id="{{ $log->id }}">
                   <th scope="row">{{ $log->id }}</th>
-                  <td>@if ($log->username) <a href="#">{{ $log->username }}</a> @else -- @endif / @if ($log->name) <a href="#">{{ $log->name }}</a> @else -- @endif</td>
+                  <td>@if ($log->user->username) <a href="#">{{ $log->user->username }}</a>@endif</td>
                   <td>{{ $log->timestamp }}</td>
                   <td>{{ $log->category }}</td>
                   <td>{{ Str::limit($log->message, 70, '...') }}</td>
-                  <td>{{ $log->ip }} <small><a target="_blank" href="http://www.ip-tracker.org/locator/ip-lookup.php?ip={{ $log->ip }}">[Trace]</a></small></td>
+                  <td>{{ $log->user->ip }} <small><a target="_blank" href="http://www.ip-tracker.org/locator/ip-lookup.php?ip={{ $log->user->ip }}">[Trace]</a></small></td>
                 </tr>
                 @if (strlen($log->message) > 70)
                   <tr class="detail detail-hidden" id="{{ $log->id }}">
@@ -109,5 +109,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/pages/logs/server/show.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/pages/logs/panel/show.js') }}" type="text/javascript"></script>
 @endsection

@@ -29,18 +29,18 @@ class BugController extends Controller
     public function index(Request $request)
     {
         $bug_list = BugTicket::where('account_id', Auth::user()->id)->orderBy('updated_at', 'desc');
-        $parameters = array('type' => False, 'status' => False);
+        $parameters = array('type' => false, 'status' => false);
 
         if ($request->get('type') != null && $request->get('type') != "All") {
-            $parameters['type'] = True;
+            $parameters['type'] = true;
             $bug_list->where('type', $request->get('type'));
         }
         if ($request->get('status') != null && $request->get('status') != "All") {
-            $parameters['status'] = True;
+            $parameters['status'] = true;
             $bug_list->where('status', $request->get('status'));
         }
         if ($request->get('search') != null) {
-            $parameters['search'] = True;
+            $parameters['search'] = true;
             $bug_list->where('subject', 'like', '%' . $request->get('search') . '%');
         }
         $paginated = $bug_list->paginate(10);
@@ -52,18 +52,18 @@ class BugController extends Controller
     public function review(Request $request)
     {
         $bug_list = BugTicket::query()->orderBy('updated_at', 'desc');
-        $parameters = array('type' => False, 'status' => False);
+        $parameters = array('type' => false, 'status' => false);
 
         if ($request->get('type') != null && $request->get('type') != "All") {
-            $parameters['type'] = True;
+            $parameters['type'] = true;
             $bug_list->where('type', $request->get('type'));
         }
         if ($request->get('status') != null && $request->get('status') != "All") {
-            $parameters['status'] = True;
+            $parameters['status'] = true;
             $bug_list->where('status', $request->get('status'));
         }
         if ($request->get('search') != null) {
-            $parameters['search'] = True;
+            $parameters['search'] = true;
             $bug_list->where('subject', 'like', '%' . $request->get('search') . '%');
         }
         $paginated = $bug_list->paginate(10);

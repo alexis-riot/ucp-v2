@@ -52,7 +52,7 @@
                   <select class="form-control" data-url-redirect="status" id="status">
                     <option>All</option>
                     @foreach (\App\Models\BugTicket::$statusString as $key => $status)
-                      <option value="{{ $key }}" @if (app('request')->input('status') == $key && $parameters['status'] == True) selected @endif>{!! $status !!}</option>
+                      <option value="{{ $key }}" @if (app('request')->input('status') == $key && $parameters['status'] == true) selected @endif>{!! $status !!}</option>
                     @endforeach
                   </select>
                 </div>
@@ -65,7 +65,7 @@
                   <select class="form-control" data-url-redirect="type" id="type">
                     <option>All</option>
                     @foreach (\App\Models\BugTicket::$typeString as $key => $type)
-                      <option value="{{ $key }}" @if (app('request')->input('type') == $key && $parameters['type'] == True) selected @endif>{!! $type !!}</option>
+                      <option value="{{ $key }}" @if (app('request')->input('type') == $key && $parameters['type'] == true) selected @endif>{!! $type !!}</option>
                     @endforeach
                   </select>
                 </div>

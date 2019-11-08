@@ -20,7 +20,7 @@ class LogServerController extends Controller
             ->map(function($table) {
                 $count = 0;
                 $table = str_replace('logs_', '', $table, $count);
-                return (($count > 0) ? $table : NULL);
+                return (($count > 0) ? $table : null);
             })
             ->reject(function($table) {
                 return empty($table);
@@ -31,8 +31,10 @@ class LogServerController extends Controller
     }
     public function show(Request $request, $tableLog)
     {
+        $this->middleware('IsValidLogServerTable');
+
         $tableName = 'logs_' . $tableLog;
-        $parameters = array('type' => False, 'status' => False);
+        $parameters = array('type' => false, 'status' => false);
 
         // Get all differents types
         $type_list = DB::table('logs')
@@ -53,11 +55,11 @@ class LogServerController extends Controller
                 'logs.category', 'logs.message', 'characters.name', 'accountID');
 
         if ($request->get('type') != null && $request->get('type') != "All") {
-            $parameters['type'] = True;
+            $parameters['type'] = true;
             $logs_list->where('logs.category', '=', $type_list[$request->get('type')]->category);
         }
         if ($request->get('user') != null) {
-            $parameters['user'] = True;
+            $parameters['user'] = true;
 
             if (User::where('username', $request->get('user'))->count() > 0) {
                 $logs_list->where('accounts.username', 'like', '%' . $request->get('user') . '%');
@@ -72,14 +74,12 @@ class LogServerController extends Controller
 
         }
         if ($request->get('search') != null) {
-            $parameters['search'] = True;
+            $parameters['search'] = true;
             $logs_list->where('logs.message', 'like', '%' . $request->get('search') . '%');
         }
 
-        $logs_list = $logs_list->paginate(20);
-
         return view('log.server.show')
-            ->with('logs_list', $logs_list)
+            ->with('logs_list', $logs_list->paginate(20))
             ->with('type_list', $type_list)
             ->with('parameters', $parameters);
     }
