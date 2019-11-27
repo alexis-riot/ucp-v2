@@ -68,6 +68,11 @@ Route::prefix('admin')->group(function () {
             ->except(['show', 'index']);
     });
 
+    Route::prefix('request')->group(function () {
+        // Requests
+        Route::resource('leave', 'RequestLeaveController');
+    });
+
     Route::prefix('user')->group(function () {
         Route::get('staff', 'StaffController@index')
             ->name('staff');

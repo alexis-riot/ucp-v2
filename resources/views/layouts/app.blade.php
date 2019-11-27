@@ -111,11 +111,11 @@
                   <h4 class="kt-menu__section-text">Admin Access</h4>
                   <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-edit-1"></i><span class="kt-menu__link-text">Requests</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                <li class="kt-menu__item  kt-menu__item--submenu @if(mb_strpos(url(Route::current()->uri()), url('admin/request')) === 0) kt-menu__item--open kt-menu__item--here @endif" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon-edit-1"></i><span class="kt-menu__link-text">Requests</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                   <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                     <ul class="kt-menu__subnav">
                       <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Requests</span></span></li>
-                      <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Leave Of Absence</span></a></li>
+                      <li class="kt-menu__item @if(Route::current()->getName() == 'leave.index') kt-menu__item--active @endif" aria-haspopup="true"><a href="{{ route('leave.index') }}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Leave Of Absence</span></a></li>
                     </ul>
                   </div>
                 </li>
