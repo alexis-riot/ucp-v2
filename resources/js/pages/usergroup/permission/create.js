@@ -25,6 +25,7 @@ var CreatePermission = function () {
                         'name': $('#name').val(),
                         'group': $('#group').val(),
                         'description': $('#description').val(),
+                        'slug': $('#slug').val(),
                     },
                     success: AjaxResponse,
                     error: AjaxResponseDefault,
@@ -47,6 +48,9 @@ var CreatePermission = function () {
                     required: true
                 },
                 description: {
+                    required: true
+                },
+                slug: {
                     required: true
                 },
             },

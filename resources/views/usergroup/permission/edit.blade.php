@@ -41,6 +41,10 @@
               <label>Description</label>
               <input type="inputtext" name="description" id="description" value="{{ $permission->description }}" class="form-control" placeholder="Enter the description...">
             </div>
+            <div class="form-group">
+              <label>Slug</label>
+              <input type="inputtext" name="slug" id="slug" value="{{ $permission->slug }}" class="form-control" placeholder="Enter the slug...">
+            </div>
           </div>
           <div class="kt-portlet__foot">
             <div class="kt-form__actions">

@@ -39,6 +39,7 @@ class PermissionController extends Controller
             'permission' => $request->input('name'),
             'tag' => $request->input('group'),
             'description' => $request->input('description'),
+            'slug' => $request->input('slug'),
         ]);
 
         return response()->json([
@@ -73,6 +74,7 @@ class PermissionController extends Controller
         $permission->permission = $request->input('name');
         $permission->tag = $request->input('group');
         $permission->description = $request->input('description');
+        $permission->slug = $request->input('slug');
         $permission->save();
 
         return response()->json([
