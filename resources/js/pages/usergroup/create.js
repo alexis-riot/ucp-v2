@@ -31,7 +31,7 @@ var CreateUsergroup = function () {
         var btn = $('[data-type-button="' + request_name + '"]');
 
         btn.on('click', function(e) {
-            e.preventDefault();  //this line disable the refresh yes, but the request wont be send. Exactly nothing will be added to the DB
+            e.preventDefault();
 
             if (validator.form()) {
                 KTApp.progress(btn);
