@@ -19,8 +19,8 @@ class UserPolicy
         //
     }
 
-    public function permission(User $user, $permissionName)
+    public function permission(User $user, $permissionSlug)
     {
-        return ($user->hasPermission($permissionName));
+        return ($user->hasPermission($permissionSlug));
     }
 }
