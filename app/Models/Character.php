@@ -12,4 +12,9 @@ class Character extends Model
     {
         return str_slug($this->name);
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'accountID');
+    }
 }

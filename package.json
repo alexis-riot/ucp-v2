@@ -39,7 +39,7 @@
         "lodash": "^4.17.13",
         "merge-stream": "^1.0.1",
         "mini-css-extract-plugin": "^0.6.0",
-        "node-sass": "^4.11.0",
+        "node-sass": "^4.13.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "postcss-loader": "^3.0.0",
         "pretty": "^2.0.0",

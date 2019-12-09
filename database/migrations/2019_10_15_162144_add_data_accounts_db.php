@@ -29,7 +29,6 @@ class AddDataAccountsDb extends Migration
         Schema::table('accounts', function (Blueprint $table) {
             $table->dropColumn('email_verified_at');
             $table->dropRememberToken();
-            $table->dropTimestamps();
         });
     }
 }

@@ -72,11 +72,11 @@ var KTQuickSearch = function() {
 
         setTimeout(function() {
             $.ajax({
-                url: 'https://keenthemes.com/metronic/tools/preview/api/quick_search.php',
+                url: '/api/users/search',
                 data: {
-                    query: query
+                    'username': input.value,
+                    'render': true,
                 },
-                dataType: 'html',
                 success: function(res) {
                     hasResult = true;
                     hideProgress();
