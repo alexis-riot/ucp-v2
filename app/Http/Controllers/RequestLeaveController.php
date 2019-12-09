@@ -6,6 +6,7 @@ use App\Models\RequestLeave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class RequestLeaveController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class RequestLeaveController extends Controller
      */
     public function create()
     {
-        //
+        return view('leave.index');
     }
 
     /**
@@ -37,7 +38,26 @@ class RequestLeaveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $date1 = $request->get('date_start');
+        $date2 = $request->get('date_end');
+        $date5 = date("Y-m-d", strtotime($date1));
+        $date6 = date("Y-m-d", strtotime($date2));
+
+        RequestLeave::create([
+            'account_id' => Auth::user()->id,
+            'date_start' => $date5,
+            'date_end' => $date6,
+            'interim_head' => $request->input('head'),
+            'type' => $request->input('type'),
+            'reason' => $request->input('reason'),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "You have created a new Leave of absence Request.",
+            'redirect' => route('leave.index')
+        ], 200);
+
     }
 
     /**

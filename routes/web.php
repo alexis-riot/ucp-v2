@@ -71,6 +71,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('request')->group(function () {
         // Requests
         Route::resource('leave', 'RequestLeaveController');
+
     });
 
     Route::prefix('user')->group(function () {

@@ -11,7 +11,7 @@
 @section('content')
   <div class="row">
     <div class="col-xl-5">
-      <form method="POST">
+      <form class="kt-form" method="POST" data-form-method="POST" data-form-type="create" data-form-url="{{ route('leave.store') }}">
         <div class="kt-portlet kt-portlet--height-fluid">
           <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
@@ -30,40 +30,54 @@
             </div>
             <div class="form-group">
               <label>Username</label>
-              <input type="inputtext" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="inputtext" name="name" id="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter username" value="{{ Auth::user()->username }}" disabled>
             </div>
             <div class="form-group">
               <label>Email address</label>
-              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" value="{{ Auth::user()->email }}" disabled>
               <span class="form-text text-muted">We'll never share your email with anyone else.</span>
             </div>
             <hr>
             <div class="form-group">
               <label>Date of leave</label>
               <div class="input-daterange input-group" id="datepicker_leave">
-                <input type="text" class="form-control" id="date_start" />
+                <input type="text" class="form-control" name="date_start" id="date_start" />
                 <div class="input-group-append">
                   <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
                 </div>
-                <input type="text" class="form-control" id="date_start" />
+                <input type="text" class="form-control" name="date_end" id="date_end" />
               </div>
             </div>
             <div class="form-group">
               <label>Interim Department Head <small>(required for admin level 3+)</small></label>
-              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <select class="form-control" id="head">
+                @foreach (\App\Models\User::all() as $key )
+                  @if ( $key->admin > 2 )
+                  <option value="{{ $key->id }}">{{ $key->username }}</option>
+                  @endif
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
-              <label>Type of leave</label>
-              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <label>Leave Type</label>
+              <select class="form-control" id="type">
+                @foreach (\App\Models\RequestLeave::$typeString as $key => $type)
+                  <option value="{{ $key }}">{{ $type }}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
-              <label>Reasons for leave</label>
-              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <label>Reasons</label>
+              <input type="text" name="reason" id="reason" class="form-control" placeholder="Enter the reason">
             </div>
           </div>
           <div class="kt-portlet__foot">
             <div>
-              <button type="reset" class="btn btn-primary">Submit</button>
+              @if ($request_list->count() > 0)
+              <button type="button" data-type-button="create" class="btn btn-outline-danger" disabled>Already Submited</button>
+              @else
+              <button type="button" data-type-button="create" class="btn btn-primary">Submit</button>
+              @endif
               <button type="reset" class="btn btn-secondary">Cancel</button>
             </div>
           </div>
@@ -92,7 +106,7 @@
               <th>Type</th>
               <th>Status</th>
               <th>Created on</th>
-              <th>Validated on</th>
+              {{--<th>Validated on</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -104,7 +118,7 @@
                   <td>{!! $request->getType() !!}</td>
                   <td>{!! $request->getStatus() !!}</td>
                   <td>{{ $request->created_at->diffForHumans() }}</td>
-                  <td>{{ $request->updated_at->diffForHumans() }}</td>
+                  {{--<td>{{ $request->updated_at->diffForHumans() }}</td>--}}
                 </tr>
               @endforeach
             @else
@@ -119,9 +133,11 @@
       </div>
     </div>
   </div>
+
 @endsection
 
 @section('scripts')
   <script src="{{ asset('js/pages/request/leave/index.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/pages/request/leave/create.js') }}" type="text/javascript"></script>
 @endsection
 
