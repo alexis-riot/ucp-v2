@@ -17,7 +17,7 @@ class RequestLeave extends Model
     public static $statusString = [
         '<span class="kt-badge kt-badge--info kt-badge--inline kt-badge--pill kt-badge--rounded">Waiting Approval</span>', // 0
         '<span class="kt-badge kt-badge--brand kt-badge--inline kt-badge--pill kt-badge--rounded">Approved</span>', // 1
-        '<span class="kt-badge kt-badge--primary kt-badge--inline kt-badge--pill kt-badge--rounded">Declined</span>', // 2
+        '<span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Declined</span>', // 2
     ];
     public static $typeString = [
         'Absent', // 0
@@ -33,5 +33,10 @@ class RequestLeave extends Model
     public function getType()
     {
         return (self::$typeString[$this->type]);
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'account_id');
     }
 }

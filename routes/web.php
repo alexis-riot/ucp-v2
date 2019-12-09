@@ -72,6 +72,12 @@ Route::prefix('admin')->group(function () {
         // Requests
         Route::resource('leave', 'RequestLeaveController');
 
+        Route::get('show', 'RequestLeaveController@showall')
+            ->name('showall');
+        Route::get('showone/{loa}', 'RequestLeaveController@show')
+            ->name('showone');
+
+
     });
 
     Route::prefix('user')->group(function () {

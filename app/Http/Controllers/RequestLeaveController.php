@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\RequestLeave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 
 class RequestLeaveController extends Controller
@@ -28,6 +30,42 @@ class RequestLeaveController extends Controller
     public function create()
     {
         return view('leave.index');
+    }
+
+    public function showall(Request $request)
+    {
+        $request_list = RequestLeave::query()->orderBy('updated_at', 'desc');
+        $users = RequestLeave::query()->orderBy('updated_at', 'desc');
+        $parameters = array('type' => false, 'status' => false);
+
+        if ($request->get('type') != null && $request->get('type') != "All") {
+            $parameters['type'] = true;
+            $request_list->where('type', $request->get('type'));
+        }
+        if ($request->get('status') != null && $request->get('status') != "All") {
+            $parameters['status'] = true;
+            $request_list->where('status', $request->get('status'));
+        }
+        if (Auth::user() != null) {
+            $user = User::where('username', $request->get('search'))->first();
+            if ($user !== null) {
+                $request_list->where('account_id', $user->id);
+                $parameters['status'] = true;
+            }
+            else {
+                $request->session()->flash('user', 'This user doesnt exist.');
+            }
+        }
+        if ($request->get('search') != null) {
+            $parameters['search'] = true;
+            $users->where('username', 'like', '%' . $request->get('search') . '%');
+        }
+
+        $paginated = $request_list->paginate(10);
+
+        return view('request.leave.showall')
+            ->with('request_list', $paginated)
+            ->with('parameters', $parameters);
     }
 
     /**
@@ -60,15 +98,11 @@ class RequestLeaveController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(RequestLeave $loa)
     {
-        //
+        return view('request.leave.showone', [
+            'ticket' => $loa
+        ]);
     }
 
     /**
