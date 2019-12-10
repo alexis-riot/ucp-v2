@@ -6,6 +6,7 @@ use App\Models\RequestLeave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 
 
 
@@ -63,7 +64,7 @@ class RequestLeaveController extends Controller
 
         $paginated = $request_list->paginate(10);
 
-        return view('request.leave.showall')
+        return view('request.leave.list')
             ->with('request_list', $paginated)
             ->with('parameters', $parameters);
     }
@@ -95,14 +96,32 @@ class RequestLeaveController extends Controller
             'message' => "You have created a new Leave of absence Request.",
             'redirect' => route('leave.index')
         ], 200);
-
     }
 
     public function show(RequestLeave $loa)
     {
-        return view('request.leave.showone', [
-            'ticket' => $loa
-        ]);
+        return view('request.leave.show')
+            ->with('difference', Carbon::parse($loa->date_start)->diffInDays($loa->date_end))
+            ->with('ticket', $loa);
+    }
+
+    public function approve($loa)
+    {
+        $ticket = RequestLeave::findOrFail($loa);
+        $ticket->status = 1;
+        $ticket->approved_by = Auth::user()->id;
+        $ticket->save();
+        return redirect('/admin/request')
+            ->with('ticket', $loa);
+    }
+    public function decline($loa)
+    {
+        $ticket = RequestLeave::findOrFail($loa);
+        $ticket->status = 2;
+        $ticket->approved_by = Auth::user()->id;
+        $ticket->save();
+        return redirect('/admin/request')
+            ->with('ticket', $loa);
     }
 
     /**
@@ -111,9 +130,12 @@ class RequestLeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($loa)
     {
-        //
+        $ticket = RequestLeave::findOrFail($loa);
+        $ticket->status = 1;
+        return view('request.leave.showone')
+            ->with('ticket', RequestLeave::findOrFail($loa));
     }
 
     /**

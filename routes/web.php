@@ -72,10 +72,14 @@ Route::prefix('admin')->group(function () {
         // Requests
         Route::resource('leave', 'RequestLeaveController');
 
-        Route::get('show', 'RequestLeaveController@showall')
+        Route::get('', 'RequestLeaveController@showall')
             ->name('showall');
-        Route::get('showone/{loa}', 'RequestLeaveController@show')
+        Route::get('/{loa}', 'RequestLeaveController@show')
             ->name('showone');
+        Route::get('approve/{loa}', 'RequestLeaveController@approve')
+            ->name('approve');
+        Route::get('decline/{loa}', 'RequestLeaveController@decline')
+            ->name('decline');
 
 
     });

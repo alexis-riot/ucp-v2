@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
   <span class="kt-subheader__breadcrumbs-separator"></span>
-  <a href="#" class="kt-subheader__breadcrumbs-link">Request</a>
+  <a href="{{ route('leave.index') }}" class="kt-subheader__breadcrumbs-link">Request list</a>
   <span class="kt-subheader__breadcrumbs-separator"></span>
   <a href="{{ route('leave.index') }}" class="kt-subheader__breadcrumbs-link">Leave of absence</a>
 @endsection

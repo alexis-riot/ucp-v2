@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('page_title', "Bugs")
+@section('page_title', "LOA")
 
 @section('breadcrumb')
     <span class="kt-subheader__breadcrumbs-separator"></span>
-    <a href="{{ route('bug.index') }}" class="kt-subheader__breadcrumbs-link">Bug list</a>
+    <a href="{{ route('leave.index') }}" class="kt-subheader__breadcrumbs-link">Requests list</a>
     <span class="kt-subheader__breadcrumbs-separator"></span>
-    <a href="{{ route('bug.review') }}" class="kt-subheader__breadcrumbs-link">Review Bug Reports</a>
+    <a href="{{ route('showall') }}" class="kt-subheader__breadcrumbs-link">Review Requests list</a>
 @endsection
 
 @section('content')
@@ -18,8 +18,8 @@
                             <i class="kt-font-brand flaticon2-rocket-1"></i>
                             </span>
                         <h3 class="kt-portlet__head-title">
-                            Review Bug Reports
-                            <small>{{ $request_list->count() }} ticket(s) has been found.</small>
+                            Review Leave of Absence Requests
+                            <small>{{ $request_list->count() }} requests(s) has been found.</small>
                         </h3>
                     </div>
                 </div>
@@ -70,23 +70,38 @@
                             <th>Date</th>
                             <th>Type</th>
                             <th>Status</th>
-                            <th>Created on</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-detailled">
                         @if ($request_list->count() > 0)
                             @foreach ($request_list as $loa)
-                                <tr>
-                                    <td><a href="{{ route('showone', ['loa' => $loa]) }}">{{ $loa->id }}</a></td>
+                                <tr class="content" id="{{ $loa->id }}"><td>{{ $loa->id }}</td>
                                     <td>From <b>{{ $loa->date_start }}</b>, to <b>{{ $loa->date_end }}</b></td>
                                     <td>{!! $loa->getType() !!}</td>
                                     <td>{!! $loa->getStatus() !!}</td>
-                                    <td>{{ $loa->created_at->diffForHumans() }}</td>
+                                </tr>
+                                <tr class="detail detail-hidden" id ="{{ $loa->id }}">
+                                    <td colspan="4" style="text-align: center">
+                                        <br><b>Reason for leave:</b> {{ $loa->reason }}<br>
+                                        @if( $loa->status == 0)
+                                        <b style="color: #0c61ed">Waiting Approval</b> <br>
+                                        @elseif( $loa->status == 1)
+                                        <b style="color: #0c5ce1">Approved by:</b> {{ $loa->approve->username }} <br>
+                                        @else
+                                        <b style="color: red">Declined by:</b> {{ $loa->approve->username }} <br>
+                                        @endif
+                                        <b>Request submitted on:</b> {{ $loa->created_at->diffForHumans() }}<br>
+                                        <b>Interim department head:</b> {{ $loa->head->username }} <br> <br>
+                                        <button class="btn m-btn--square  btn-success">
+                                            <a style="color: white" href="{{ route('showone', ['loa' => $loa]) }}">Show more details</a>
+                                        </button>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="6" class="text-center">No records found</td>
+                                <td colspan="4" class="text-center">No records found</td>
                             </tr>
                         @endif
                         </tbody>

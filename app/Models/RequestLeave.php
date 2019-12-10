@@ -39,4 +39,14 @@ class RequestLeave extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'account_id');
     }
+
+    public function head()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'interim_head');
+    }
+
+    public function approve()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'approved_by');
+    }
 }
