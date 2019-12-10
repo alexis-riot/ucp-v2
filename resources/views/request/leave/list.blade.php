@@ -76,7 +76,7 @@
                         @if ($request_list->count() > 0)
                             @foreach ($request_list as $loa)
                                 <tr class="content" id="{{ $loa->id }}"><td>{{ $loa->id }}</td>
-                                    <td>From <b>{{ $loa->date_start }}</b>, to <b>{{ $loa->date_end }}</b></td>
+                                    <td>From <b>{{ Carbon\Carbon::parse($loa->date_start)->isoFormat('MMM Do YYYY') }}</b>, to <b>{{ Carbon\Carbon::parse($loa->date_end)->isoFormat('MMM Do YYYY') }}</b></td>
                                     <td>{!! $loa->getType() !!}</td>
                                     <td>{!! $loa->getStatus() !!}</td>
                                 </tr>

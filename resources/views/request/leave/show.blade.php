@@ -46,7 +46,7 @@
                 <div class="form-group form-group-xs row">
                     <label class="col-5 col-form-label">Date:</label>
                     <div class="col-7">
-                        <span class="form-control-plaintext kt-font-bolder">{{ $ticket->date_start }}<small> / </small>{{ $ticket->date_end }}</span>
+                        <span class="form-control-plaintext kt-font-bolder">{{ Carbon\Carbon::parse($ticket->date_start)->isoFormat('MMM Do YYYY') }}<small> / </small>{{ Carbon\Carbon::parse($ticket->date_end)->isoFormat('MMM Do YYYY') }}</span>
                     </div>
                 </div>
                 <div class="form-group form-group-xs row">

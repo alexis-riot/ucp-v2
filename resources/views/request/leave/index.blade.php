@@ -114,7 +114,7 @@
               @foreach ($request_list as $request)
                 <tr>
                   <th scope="row">{{ $request->id }}</th>
-                  <td>From <b>{{ $request->date_start }}</b>, to <b>{{ $request->date_end }}</b></td>
+                  <td>From <b>{{ Carbon\Carbon::parse($request->date_start)->isoFormat('MMM Do YYYY') }}</b>, to <b>{{ Carbon\Carbon::parse($request->date_end)->isoFormat('MMM Do YYYY') }}</b></td>
                   <td>{!! $request->getType() !!}</td>
                   <td>{!! $request->getStatus() !!}</td>
                   <td>{{ $request->created_at->diffForHumans() }}</td>
