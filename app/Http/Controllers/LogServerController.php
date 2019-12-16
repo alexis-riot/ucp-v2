@@ -79,7 +79,7 @@ class LogServerController extends Controller
         }
 
         return view('log.server.show')
-            ->with('logs_list', $logs_list->paginate(20))
+            ->with('logs_list', $logs_list->orderByDesc('id')->paginate(20))
             ->with('type_list', $type_list)
             ->with('parameters', $parameters);
     }
