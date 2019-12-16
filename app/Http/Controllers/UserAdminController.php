@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserAdminController extends Controller
@@ -21,17 +22,17 @@ class UserAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search()
+    public function index()
     {
-        //
+        return view('lookup.user.index');
     }
 
     /**
-     * Get JSON response of users.
+     * Search page user.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getUsers(Request $request)
+    public function show(Request $request, User $user)
     {
         //
     }

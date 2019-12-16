@@ -90,4 +90,11 @@ Route::prefix('admin')->group(function () {
         Route::get('panel/{log}', 'LogPanelController@show')
             ->name('logs.panel.show');
     });
+
+    Route::prefix('lookup')->group(function () {
+        Route::get('/', 'UserAdminController@index')
+            ->name('lookup.user.index');
+        Route::get('/{$user}', 'UserAdminController@show')
+            ->name('lookup.user.search');
+    });
 });
