@@ -70,7 +70,25 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('request')->group(function () {
         // Requests
-        Route::resource('leave', 'RequestLeaveController');
+        Route::resource('leave', 'RequestLeaveController')
+            ->except(['update', 'destroy', 'create', 'show', 'edit']);
+
+        Route::get('leave/review', 'RequestLeaveReviewController@index')
+            ->name('leave.review');
+        Route::patch('leave/review/{request_leave}', 'RequestLeaveReviewController@update')
+            ->name('leave.review.update');
+
+        /*
+        Route::get('', 'RequestLeaveController@showall')
+            ->name('showall');
+        Route::get('/{loa}', 'RequestLeaveController@show')
+            ->name('showone');
+        Route::get('approve/{loa}', 'RequestLeaveController@approve')
+            ->name('approve');
+        Route::get('decline/{loa}', 'RequestLeaveController@decline')
+            ->name('decline');
+*/
+
     });
 
     Route::prefix('user')->group(function () {

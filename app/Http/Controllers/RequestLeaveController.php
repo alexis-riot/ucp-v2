@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequestLeave\StoreRequest;
 use App\Models\RequestLeave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Carbon;
+
+
 
 class RequestLeaveController extends Controller
 {
@@ -16,17 +21,8 @@ class RequestLeaveController extends Controller
     public function index()
     {
         return view('request.leave.index')
-            ->with('request_list', RequestLeave::where('account_id', Auth::user()->id)->paginate(15));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+            ->with('request_list', RequestLeave::where('account_id', Auth::user()->id)->paginate(15))
+            ->with('staff_list', User::where('admin', '>', '0')->get());
     }
 
     /**
@@ -35,53 +31,24 @@ class RequestLeaveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
-    }
+        $date_start = date("Y-m-d", strtotime($request->input('date_start')));
+        $date_end = date("Y-m-d", strtotime($request->input('date_end')));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        RequestLeave::create([
+            'account_id' => Auth::user()->id,
+            'date_start' => $date_start,
+            'date_end' => $date_end,
+            'interim_head' => $request->input('head'),
+            'type' => $request->input('type'),
+            'reason' => $request->input('reason'),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json([
+            'status' => 'success',
+            'message' => "Your leave request has been submitted.",
+            'redirect' => route('leave.index')
+        ], 200);
     }
 }
