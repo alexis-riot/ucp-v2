@@ -1,5 +1,40 @@
 "use strict";
 
+var CreateRequest = function () {
+    var initSubmit = function() {
+        var request_name = "create";
+
+        var form = $('[data-form-type="' + request_name + '"]');
+        var btn = $('[data-type-button="' + request_name + '"]');
+
+        btn.on('click', function(e) {
+            e.preventDefault();
+            KTApp.progress(btn);
+
+            $.ajax({
+                url: form.data('form-url'),
+                method: form.data('form-method'),
+                data: {
+                    'name': $('#name').val(),
+                    'date_start': $('#date_start').val(),
+                    'date_end': $('#date_end').val(),
+                    'head': $('#head').val(),
+                    'type': $('#type').val(),
+                    'reason': $('#reason').val(),
+                },
+                success: AjaxResponse,
+                error: AjaxResponseDefault,
+            });
+        });
+    };
+
+    return {
+        init: function() {
+            initSubmit(); // ajax
+        }
+    };
+}();
+
 var BootstrapDatepicker = {
     init: function() {
         $("#datepicker_leave").datepicker({
@@ -36,7 +71,9 @@ var BootstrapSelect = {
         $(".m_selectpicker").selectpicker();
     }
 };
+
 $(document).ready(function() {
+    CreateRequest.init();
     BootstrapDatepicker.init();
     BootstrapSelect.init();
 });

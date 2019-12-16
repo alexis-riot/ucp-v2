@@ -17,7 +17,7 @@ class CreateRequestLeavesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('account_id');
             $table->integer('status')->default(0);
-            $table->integer('approved_by');
+            $table->integer('approved_by')->nullable();
             $table->integer('interim_head')->nullable();
             $table->integer('type');
             $table->string('reason');

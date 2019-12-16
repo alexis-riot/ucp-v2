@@ -48,16 +48,16 @@
                 <input type="text" class="form-control" name="date_end" id="date_end" />
               </div>
             </div>
+            @if (Auth::user()->admin >= 3)
             <div class="form-group">
               <label>Interim Department Head <small>(required for admin level 3+)</small></label>
               <select class="form-control" id="head">
-                @foreach (\App\Models\User::all() as $key )
-                  @if ( $key->admin > 2 )
-                  <option value="{{ $key->id }}">{{ $key->username }}</option>
-                  @endif
+                @foreach ($staff_list as $staff)
+                  <option value="{{ $staff->id }}">{{ $staff->username }} (Admin level: {{ $staff->admin }})</option>
                 @endforeach
               </select>
             </div>
+            @endif
             <div class="form-group">
               <label>Leave Type</label>
               <select class="form-control" id="type">
@@ -73,11 +73,7 @@
           </div>
           <div class="kt-portlet__foot">
             <div>
-              @if ($request_list->count() > 0)
-              <button type="button" data-type-button="create" class="btn btn-outline-danger" disabled>Already Submited</button>
-              @else
               <button type="button" data-type-button="create" class="btn btn-primary">Submit</button>
-              @endif
               <button type="reset" class="btn btn-secondary">Cancel</button>
             </div>
           </div>
@@ -106,19 +102,34 @@
               <th>Type</th>
               <th>Status</th>
               <th>Created on</th>
-              {{--<th>Validated on</th>--}}
             </tr>
             </thead>
-            <tbody>
+            <tbody class="table-detailled">
             @if ($request_list->count() > 0)
               @foreach ($request_list as $request)
-                <tr>
+                <tr class="content" id="{{ $request->id }}">
                   <th scope="row">{{ $request->id }}</th>
-                  <td>From <b>{{ Carbon\Carbon::parse($request->date_start)->isoFormat('MMM Do YYYY') }}</b>, to <b>{{ Carbon\Carbon::parse($request->date_end)->isoFormat('MMM Do YYYY') }}</b></td>
+                  <td>{{ $request->date_start->format('m/d/Y') }} - {{ $request->date_end->format('m/d/Y') }}</td>
                   <td>{!! $request->getType() !!}</td>
                   <td>{!! $request->getStatus() !!}</td>
                   <td>{{ $request->created_at->diffForHumans() }}</td>
-                  {{--<td>{{ $request->updated_at->diffForHumans() }}</td>--}}
+                </tr>
+                <tr class="detail detail-hidden" id="{{ $request->id }}">
+                  <td colspan="5" class="text-center">
+                    @if ($request->status == 1)
+                      <p class="text-success"><i class="fa fa-check"></i> This request was approved by <b>{{ $request->approve->username }}</b></p>
+                    @elseif ($request->status == 2)
+                      <p class="text-danger"><i class="fa fa-times"></i> This request was rejected by <b>{{ $request->approve->username }}</b></p>
+                    @else
+                      <p class="text-primary"><i class="fas fa-spinner fa-spin"></i> This request is waiting approval.</p>
+                    @endif
+                    <b>Reason for leave:</b> {{ $request->reason }}<br>
+                    <b>Type of leave:</b> {{ $request->getType() }}<br>
+                    <b>Duration:</b> {{ $request->countDays() }} days
+                    @if ($request->interim_head)
+                      <br><b>Interim head:</b> {{ $request->head->username }}
+                    @endif
+                  </td>
                 </tr>
               @endforeach
             @else
@@ -138,6 +149,5 @@
 
 @section('scripts')
   <script src="{{ asset('js/pages/request/leave/index.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('js/pages/request/leave/create.js') }}" type="text/javascript"></script>
 @endsection
 

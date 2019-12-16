@@ -43,16 +43,62 @@ window.AjaxResponse = function (data) {
             window.location.href = data.redirect;
         }, 1000);
     } else {
-        KTApp.unprogress($('button[class*="kt-spinner"]'));
+        if (data.reset) {
+            $('button[disabled]').closest('form')[0].reset();
+        }
+        KTApp.unprogress($('span.spinner-border').parent("button"));
     }
 };
 
+
 window.AjaxResponseDefault = function(data) {
-    swal.fire({
-        "title": "",
-        "text": (data.responseJSON.message ? data.responseJSON.message : "An error occurred on the server"),
-        "type": "error",
-        "confirmButtonClass": "btn btn-secondary"
-    });
-    KTApp.unprogress($('button[class*="kt-spinner"]'));
+    var text = "";
+    if (data.responseJSON.status && data.responseJSON.status == "error") {
+        text = (data.responseJSON.message ? data.responseJSON.message : "An error occurred on the server");
+    }
+    else {
+        $('.is-invalid')
+            .removeClass('is-invalid')
+            .next('span.invalid-feedback').remove();
+
+        if (data.responseJSON.errors) {
+            for(var index in data.responseJSON.errors) {
+                for (var msg in data.responseJSON.errors[index]) {
+                    var element = $('#' + index);
+                    if (element) {
+
+                        element.addClass('is-invalid');
+                        element.after('<span class="invalid-feedback">' + data.responseJSON.errors[index][msg] + '</span>');
+                    }
+                    else {
+                        text += data.responseJSON.errors[index][msg] + '<br>';
+                    }
+                }
+            }
+        }
+        else {
+            text = "An error occurred on the server";
+        }
+    }
+    if (text) {
+        swal.fire({
+            html: true,
+            "title": "",
+            "html": text,
+            "type": "error",
+            "confirmButtonClass": "btn btn-secondary"
+        });
+    }
+    KTApp.unprogress($('span.spinner-border').parent("button"));
 };
+
+window.progressBtn = function(element) {
+    element.prepend('<span class="spinner-border spinner-border-sm mr-1"></span> ');
+    element.attr('disabled', 'disabled');
+};
+
+window.unprogressBtn = function(element) {
+    element.find('span.spinner-border').remove();
+    element.removeAttr('disabled');
+};
+
