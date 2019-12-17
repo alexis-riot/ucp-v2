@@ -21,6 +21,6 @@ class StaffController extends Controller
     public function index()
     {
         return view('staff.index')
-            ->with('staff_list', User::where('admin', '>', '0')->orWhere('developer', '>', '0')->get());
+            ->with('staff_list', User::where('admin', '>', '0')->orWhere('developer', '>', '0')->orderByDesc('admin')pu->get());
     }
 }
