@@ -32,6 +32,8 @@ Route::prefix('master')->group(function () {
             ->name('profile');
         Route::get('profile/password', 'UserController@password')
             ->name('profile.password');
+        Route::patch('profile/password', 'UserController@updatePassword')
+            ->name('profile.password.update');
     });
     // Punishments
     Route::get('punishments', 'WarnController@index')

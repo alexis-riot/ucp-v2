@@ -309,15 +309,15 @@ var KTApp = function() {
             var classes = 'kt-spinner ' + 'kt-spinner--' + skin + ' kt-spinner--' + alignment + size;
 
             KTApp.unprogress(target);
-            KTUtil.attr(target, 'disabled', true);
 
+            $(target).attr('disabled', 'disabled');
             $(target).addClass(classes);
             $(target).data('progress-classes', classes);
         },
 
         unprogress: function(target) {
             $(target).removeClass($(target).data('progress-classes'));
-            KTUtil.removeAttr(target, 'disabled');
+            $(target).removeAttr('disabled');
         },
 
         getStateColor: function(name) {

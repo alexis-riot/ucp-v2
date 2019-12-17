@@ -46,7 +46,7 @@ window.AjaxResponse = function (data) {
         if (data.reset) {
             $('button[disabled]').closest('form')[0].reset();
         }
-        KTApp.unprogress($('span.spinner-border').parent("button"));
+        KTApp.unprogress($('button.kt-spinner'));
     }
 };
 
@@ -89,7 +89,7 @@ window.AjaxResponseDefault = function(data) {
             "confirmButtonClass": "btn btn-secondary"
         });
     }
-    KTApp.unprogress($('span.spinner-border').parent("button"));
+    KTApp.unprogress($('button.kt-spinner'));
 };
 
 window.progressBtn = function(element) {
