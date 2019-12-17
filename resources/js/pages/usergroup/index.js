@@ -43,7 +43,6 @@ var Delete = function () {
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!'
             }).then(function(result) {
-                console.log(form);
                 if (result.value) {
                     e.preventDefault();
                     $.ajax({

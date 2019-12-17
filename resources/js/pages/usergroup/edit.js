@@ -2,9 +2,6 @@
 
 // Class definition
 var CreateUsergroup = function () {
-    var validator;
-    var formEl;
-
     var checkLabel = function() {
         $("[name='label_permission']").click(function () {
             $(this)
@@ -32,57 +29,26 @@ var CreateUsergroup = function () {
 
         btn.on('click', function(e) {
             e.preventDefault();
+            KTApp.progress(btn);
 
-            if (validator.form()) {
-                KTApp.progress(btn);
-
-                $.ajax({
-                    url: form.data('form-url'),
-                    method: form.data('form-method'),
-                    data: {
-                        'name': $('#usergroup_name').val(),
-                        'permissions': getPermissions(),
-                    },
-                    success: AjaxResponse,
-                    error: AjaxResponseDefault,
-                });
-            }
-        });
-    };
-
-    var initValidation = function() {
-        validator = formEl.validate({
-            // Validate only visible fields
-            ignore: ":hidden",
-
-            // Validation rules
-            rules: {
-                usergroup_name: {
-                    required: true
+            $.ajax({
+                url: form.data('form-url'),
+                method: form.data('form-method'),
+                data: {
+                    'name': $('#usergroup_name').val(),
+                    'permissions': getPermissions(),
                 },
-            },
-
-            // Display error
-            invalidHandler: function(event, validator) {
-                KTUtil.scrollTop();
-
-                swal.fire({
-                    "title": "",
-                    "text": "There are some errors in your submission. Please correct them.",
-                    "type": "error",
-                    "confirmButtonClass": "btn btn-secondary"
-                });
-            },
+                success: AjaxResponse,
+                error: AjaxResponseDefault,
+            });
         });
     };
 
     return {
         init: function() {
-            formEl = $("[data-form-type='update']");
 
             checkLabel();
             initSubmit(); // ajax
-            initValidation();
         }
     };
 }();
