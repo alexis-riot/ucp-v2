@@ -10,12 +10,13 @@
 
 @section('content')
   <div class="row">
-    <div class="col-xl-3">
+    @foreach ($staff_list as $staff)
 
-      <div class="kt-portlet kt-portlet--height-fluid">
-        <div class="kt-portlet__body mt-5">
+      <div class="col-xl-3">
 
-          @foreach ($staff_list as $staff)
+        <div class="kt-portlet kt-portlet--height-fluid">
+          <div class="kt-portlet__body mt-5">
+
             <div class="kt-widget kt-widget--user-profile-2">
               <div class="kt-widget__head">
                 <div class="kt-widget__media">
@@ -52,10 +53,11 @@
                 <a href="#" class="btn btn-label-warning btn-lg btn-upper">view profile</a>
               </div>
             </div>
-          @endforeach
+          </div>
         </div>
-      </div>
 
-    </div>
+      </div>
+    @endforeach
+
   </div>
 @endsection
