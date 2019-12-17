@@ -23,14 +23,14 @@
                 </div>
                 <div class="kt-widget__info">
                   <a href="#" class="kt-widget__username">{{ $staff->username }}</a>
-                  <span class="kt-widget__desc">{{ $staff->staff_level->levelName }}</span>
+                  <span class="kt-widget__desc">@if ($staff->staff_level->levelName) {{ $staff->staff_level->levelName }} @else N/A @endif</span>
                 </div>
               </div>
               <div class="kt-widget__body mt-3">
                 <div class="kt-widget__item">
                   <div class="kt-widget__contact">
                     <span class="kt-widget__label">Admin rank:</span>
-                    <a class="kt-widget__data">{{ $staff->staff_level->levelName }} ({{ $staff->staff_level->levelID }})</a>
+                    <a class="kt-widget__data">@if ($staff->staff_level->levelName) {{ $staff->staff_level->levelName }} @else N/A @endif ({{ $staff->staff_level->levelID }})</a>
                   </div>
                   <div class="kt-widget__contact">
                     <span class="kt-widget__label">Is developer:</span>

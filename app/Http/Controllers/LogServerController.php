@@ -65,7 +65,6 @@ class LogServerController extends Controller
                 $logs_list->where('accounts.username', 'like', '%' . $request->get('user') . '%');
             }
             elseif (Character::where('name', $request->get('user'))->count() > 0) {
-
                 $logs_list->where('characters.name', 'like', '%' . $request->get('user') . '%');
             }
             else {
