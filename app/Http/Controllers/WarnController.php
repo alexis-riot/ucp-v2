@@ -26,7 +26,7 @@ class WarnController extends Controller
         return view('warn.index')
             ->with('user', Auth::user())
             ->with('countActiveWarns', collect(Auth::user()->warns)->map(function ($warn) {
-                return ($warn->isExpired()) ? 0 : $warn->points;
+                return ($warn->isExpired() ? 0 : 1);
             })->sum());
     }
 }
