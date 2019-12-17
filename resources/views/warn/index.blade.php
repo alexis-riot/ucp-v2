@@ -11,7 +11,7 @@
     <div class="col-xl-12">
       <div class="alert alert-light alert-elevate fade show" role="alert">
         <div class="alert-text">
-          <h4 class="alert-heading">Actually, you have <span class="kt-font-bold">{{ $countActiveWarns }} warnings</span> points.</h4>
+          <h4 class="alert-heading">Actually, you have <span class="kt-font-bold">{{ $countActiveWarns }} active records</span>.</h4>
           <p>This table contains all the information about your admin records in this community.</p>
           <hr>
           <p class="mb-0">As a reminder, a strict regulation is available by <a class="kt-link kt-font-bold" href="https://mafiacity-rp.com/forums/index.php?threads/server-rules.2496/" target="_blank">clicking here</a>.</p>
@@ -40,7 +40,6 @@
             <tr>
               <th>Reason</th>
               <th>Staff Name</th>
-              <th>Points</th>
               <th>Date</th>
               <th>Expiration</th>
             </tr>
@@ -51,7 +50,6 @@
                 <tr>
                   <td>{{ $warn->name }}</td>
                   <td>@if ($warn->author) {{ $warn->author->username }} @else N/A @endif</td>
-                  <td>{{ $warn->points }}</td>
                   <td>{{ $warn->punishmentDate }}</td>
                   <td>
                     @if ($warn->isExpired())
