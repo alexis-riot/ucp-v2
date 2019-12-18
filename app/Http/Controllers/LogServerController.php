@@ -47,8 +47,8 @@ class LogServerController extends Controller
         $logs_list = DB::table($tableName)
             ->from($tableName)
             ->join("logs", $tableName . '.log_id', '=', 'logs.id');
-        if ($tableLog !== "players")
-            $logs_list->join('logs_players', 'logs.id', '=', 'logs_players.log_id');
+        //if ($tableLog !== "players")
+            //$logs_list->join('logs_players', 'logs.id', '=', 'logs_players.log_id');
         $logs_list->join('characters', 'logs_characters.character_id', '=', 'characters.id')
             ->join('accounts', 'characters.accountID', '=', 'accounts.id')
             ->select('accounts.username', 'accounts.ip', 'logs.id', 'logs.timestamp',
