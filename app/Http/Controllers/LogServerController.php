@@ -45,11 +45,11 @@ class LogServerController extends Controller
 
         // Get all logs from differents tables
         $logs_list = DB::table($tableName)
-            ->from('logs')
-            ->join($tableName, 'logs.id', '=', $tableName . '.log_id');
+            ->from($tableName)
+            ->join("logs", $tableName . '.log_id', '=', 'logs.id');
         if ($tableLog !== "players")
             $logs_list->join('logs_players', 'logs.id', '=', 'logs_players.log_id');
-        $logs_list->join('characters', 'logs_players.player_id', '=', 'characters.id')
+        $logs_list->join('characters', 'logs_characters.character_id', '=', 'characters.id')
             ->join('accounts', 'characters.accountID', '=', 'accounts.id')
             ->select('accounts.username', 'accounts.ip', 'logs.id', 'logs.timestamp',
                 'logs.category', 'logs.message', 'characters.name', 'accountID');
