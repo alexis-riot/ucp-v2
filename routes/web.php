@@ -112,9 +112,17 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('lookup')->group(function () {
-        Route::get('/{user}', 'UserAdminController@show')
+        Route::get('/', 'UserAdminController@search')
             ->name('lookup.user.search');
-        Route::get('/', 'UserAdminController@index')
-            ->name('lookup.user.index');
+        Route::get('{user}/overview', 'UserAdminController@overview')
+            ->name('lookup.user.overview');
+        Route::get('{user}/usergroup', 'UserAdminController@usergroup')
+            ->name('lookup.user.usergroup');
+        Route::get('{user}/punishments', 'UserAdminController@punishments')
+            ->name('lookup.user.punishments');
+        Route::get('{user}/whois', 'UserAdminController@whois')
+            ->name('lookup.user.whois');
+        Route::get('{user}/staff-profile', 'UserAdminController@staffProfile')
+            ->name('lookup.user.staff_profile');
     });
 });

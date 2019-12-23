@@ -22,19 +22,43 @@ class UserAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function search(Request $request, User $user)
     {
-        return view('lookup.user.index');
+        return view('lookup.search');
     }
 
     /**
-     * Search page user.
+     * User lookup dash.
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function overview(Request $request, User $user)
     {
-        return view('lookup.user.show')
+        return view('lookup.user.overview')
+            ->with('user', $user);
+    }
+
+    public function usergroup(Request $request, User $user)
+    {
+        return view('lookup.user.usergroup')
+            ->with('user', $user);
+    }
+
+    public function punishments(Request $request, User $user)
+    {
+        return view('lookup.user.punishments')
+            ->with('user', $user);
+    }
+
+    public function whois(Request $request, User $user)
+    {
+        return view('lookup.user.whois')
+            ->with('user', $user);
+    }
+
+    public function staffProfile(Request $request, User $user)
+    {
+        return view('lookup.user.staff_profile')
             ->with('user', $user);
     }
 }

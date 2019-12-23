@@ -20,12 +20,10 @@ class LogServerController extends Controller
             ->map(function($table) {
                 $count = 0;
 
-                if ($table == "logs_players")
-                    return null;
-
                 $table = str_replace('logs_', '', $table, $count);
                 return (($count > 0) ? $table : null);
             })
+            ->reject('players')
             ->reject(function($table) {
                 return empty($table);
             }
