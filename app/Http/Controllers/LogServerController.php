@@ -19,6 +19,10 @@ class LogServerController extends Controller
         $logs_tables = collect(DB::connection()->getDoctrineSchemaManager()->listTableNames())
             ->map(function($table) {
                 $count = 0;
+
+                if ($table == "logs_players")
+                    return null;
+
                 $table = str_replace('logs_', '', $table, $count);
                 return (($count > 0) ? $table : null);
             })
@@ -29,6 +33,7 @@ class LogServerController extends Controller
         return view('log.server.index')
             ->with('tables_list', $logs_tables);
     }
+
     public function show(Request $request, $tableLog)
     {
         $this->middleware('IsValidLogServerTable');

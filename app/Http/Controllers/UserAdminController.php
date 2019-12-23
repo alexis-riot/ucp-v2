@@ -34,6 +34,7 @@ class UserAdminController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        //
+        return view('lookup.user.show')
+            ->with('user', $user);
     }
 }

@@ -112,9 +112,9 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('lookup')->group(function () {
+        Route::get('/{user}', 'UserAdminController@show')
+            ->name('lookup.user.search');
         Route::get('/', 'UserAdminController@index')
             ->name('lookup.user.index');
-        Route::get('/{$user}', 'UserAdminController@show')
-            ->name('lookup.user.search');
     });
 });

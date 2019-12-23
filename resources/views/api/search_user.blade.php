@@ -12,7 +12,7 @@
         @foreach ($user_list as $user)
           <div class="kt-quick-search__item">
             <div class="kt-quick-search__item-wrapper">
-              <a href="#" class="kt-quick-search__item-title">
+              <a href="{{ route('lookup.user.search', ['user' => $user]) }}" class="kt-quick-search__item-title">
                 {{ $user->username }}
               </a>
               <div class="kt-quick-search__item-desc">
@@ -32,7 +32,7 @@
         @foreach ($character_list as $character)
           <div class="kt-quick-search__item">
             <div class="kt-quick-search__item-wrapper">
-              <a href="#" class="kt-quick-search__item-title">
+              <a href="{{ route('lookup.user.search', ['user' => $character->user]) }}" class="kt-quick-search__item-title">
                 {{ $character->name }}
               </a>
               <div class="kt-quick-search__item-desc">
