@@ -21,7 +21,6 @@
             </span>
             <h3 class="kt-portlet__head-title">
               Server Logs - {{ ucfirst(request('log')) }}
-              <small>{{ $logs_list->total() }} logs has been found.</small>
             </h3>
           </div>
         </div>
@@ -101,7 +100,7 @@
             @endif
             </tbody>
           </table>
-          {{ $logs_list->links() }}
+          {{ $logs_list->render() }}
         </div>
       </div>
     </div>

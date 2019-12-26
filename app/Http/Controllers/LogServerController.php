@@ -42,7 +42,7 @@ class LogServerController extends Controller
         // Get all differents types
         $type_list = DB::table('logs')
             ->select('category')
-            ->join($tableName, 'logs.id', '=', $tableName . '.log_id')
+            ->distinct()
             ->groupBy('category')
             ->get();
 
@@ -50,38 +50,13 @@ class LogServerController extends Controller
         $logs_list = DB::table($tableName)
             ->from($tableName)
             ->join("logs", $tableName . '.log_id', '=', 'logs.id');
-        //if ($tableLog !== "players")
-            //$logs_list->join('logs_players', 'logs.id', '=', 'logs_players.log_id');
-        $logs_list->join('characters', 'logs_characters.character_id', '=', 'characters.id')
-            ->join('accounts', 'characters.accountID', '=', 'accounts.id')
+        $logs_list->leftJoin('characters', 'logs_characters.character_id', '=', 'characters.id')
+            ->leftJoin('accounts', 'characters.accountID', '=', 'accounts.id')
             ->select('accounts.username', 'accounts.ip', 'logs.id', 'logs.timestamp',
                 'logs.category', 'logs.message', 'characters.name', 'accountID');
 
-        if ($request->get('type') != null && $request->get('type') != "All") {
-            $parameters['type'] = true;
-            $logs_list->where('logs.category', '=', $type_list[$request->get('type')]->category);
-        }
-        if ($request->get('user') != null) {
-            $parameters['user'] = true;
-
-            if (User::where('username', $request->get('user'))->count() > 0) {
-                $logs_list->where('accounts.username', 'like', '%' . $request->get('user') . '%');
-            }
-            elseif (Character::where('name', $request->get('user'))->count() > 0) {
-                $logs_list->where('characters.name', 'like', '%' . $request->get('user') . '%');
-            }
-            else {
-                $request->session()->flash('user', 'This user doesnt exist.');
-            }
-
-        }
-        if ($request->get('search') != null) {
-            $parameters['search'] = true;
-            $logs_list->where('logs.message', 'like', '%' . $request->get('search') . '%');
-        }
-
         return view('log.server.show')
-            ->with('logs_list', $logs_list->orderByDesc('id')->paginate(20))
+            ->with('logs_list', $logs_list->orderByDesc('id')->simplePaginate(20))
             ->with('type_list', $type_list)
             ->with('parameters', $parameters);
     }
