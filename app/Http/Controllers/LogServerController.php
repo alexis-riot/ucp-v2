@@ -55,6 +55,28 @@ class LogServerController extends Controller
             ->select('accounts.username', 'accounts.ip', 'logs.id', 'logs.timestamp',
                 'logs.category', 'logs.message', 'characters.name', 'accountID');
 
+        if ($request->get('type') != null && $request->get('type') != "All") {
+            $parameters['type'] = true;
+            $logs_list->where('logs.category', '=', $type_list[$request->get('type')]->category);
+        }
+        if ($request->get('user') != null) {
+            $parameters['user'] = true;
+
+            if (User::where('username', $request->get('user'))->count() > 0) {
+                $logs_list->where('accounts.username', 'like', '%' . $request->get('user') . '%');
+            }
+            elseif (Character::where('name', $request->get('user'))->count() > 0) {
+                $logs_list->where('characters.name', 'like', '%' . $request->get('user') . '%');
+            }
+            else {
+                $request->session()->flash('user', 'This user doesnt exist.');
+            }
+        }
+        if ($request->get('search') != null) {
+            $parameters['search'] = true;
+            $logs_list->where('logs.message', 'like', '%' . $request->get('search') . '%');
+        }
+
         return view('log.server.show')
             ->with('logs_list', $logs_list->orderByDesc('id')->simplePaginate(20))
             ->with('type_list', $type_list)
